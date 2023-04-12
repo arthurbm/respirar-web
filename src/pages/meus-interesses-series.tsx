@@ -1,4 +1,13 @@
-import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Checkbox,
+  CheckboxGroup,
+  Flex,
+  Icon,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -49,7 +58,7 @@ function AbsoluteImages() {
   );
 }
 
-const Home: NextPage = () => {
+const MyInterestsSeries: NextPage = () => {
   return (
     <>
       <Head>
@@ -66,29 +75,46 @@ const Home: NextPage = () => {
           h={"full"}
           gap={8}
         >
-          <Flex flexDir={"column"} align={"center"}>
-            <Text color={"white.500"} fontSize={"2xl"} fontWeight={400}>
-              você já parou para
-            </Text>
+          <Flex flexDir={"column"} align={"center"} textAlign={"center"}>
             <CustomHeading
               color={"white.500"}
               fontSize={"4xl"}
               fontWeight={"bold"}
             >
-              respirar
+              meus interesses
             </CustomHeading>
-            <Text color={"white.500"} fontSize={"2xl"} fontWeight={400}>
-              hoje?
-            </Text>
           </Flex>
-
-          <Text color={"white.500"} fontSize={"md"}>
-            temos a solução perfeita para que você separe um tempo do seu dia
-            para realizar atividades que você gosta!
+          S
+          <Text
+            color={"#FFF4EA"}
+            fontSize={"20px"}
+            fontWeight={"bold"}
+            textAlign={"center"}
+          >
+            você tem uma série de conforto?
           </Text>
-
+          <CheckboxGroup colorScheme="#CF6E33">
+            <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={10}>
+              <Stack>
+                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="comedy">
+                  Friends
+                </Checkbox>
+                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="drama">
+                  How I met your mother
+                </Checkbox>
+              </Stack>
+              <Stack>
+                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="fiction">
+                  Modern Family
+                </Checkbox>
+                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="fantasy">
+                  The Office
+                </Checkbox>
+              </Stack>
+            </Box>
+          </CheckboxGroup>
           <Flex flexDir={"column"} align={"center"} gap={6}>
-            <Link href="/meus-interesses">
+            <Link href={"/resultado"}>
               <Button
                 color={"darkBlue.500"}
                 w={"28"}
@@ -96,21 +122,10 @@ const Home: NextPage = () => {
                 colorScheme={"orange"}
                 boxShadow={"0px 0px 40px 0px #CF6E3366"}
               >
-                Vamos lá
+                Continuar
               </Button>
             </Link>
-            {/* <Button
-              w={"28"}
-              size={"lg"}
-              borderWidth={2}
-              colorScheme={"orange"}
-              variant={"outline"}
-              // boxShadow={"0px 0px 40px 0px #CF6E3399"}
-            >
-              Cadastro
-            </Button> */}
           </Flex>
-
           <Icon
             position={"absolute"}
             bottom={"10"}
@@ -125,4 +140,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default MyInterestsSeries;
