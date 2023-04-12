@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Button, Checkbox, CheckboxGroup, Flex, Icon, Stack, Text } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -10,7 +10,6 @@ import ellipseTopBright from "../assets/images/ellipse-top-bright.png";
 import ellipseTopDark from "../assets/images/ellipse-top-dark.png";
 import lineBottom from "../assets/images/line-bottom.png";
 import lineTop from "../assets/images/line-top.png";
-import Link from "next/link";
 
 function AbsoluteImages() {
   return (
@@ -49,7 +48,7 @@ function AbsoluteImages() {
   );
 }
 
-const Home: NextPage = () => {
+const MyInterests: NextPage = () => {
   return (
     <>
       <Head>
@@ -66,48 +65,59 @@ const Home: NextPage = () => {
           h={"full"}
           gap={8}
         >
-          <Flex flexDir={"column"} align={"center"}>
-            <Text color={"white.500"} fontSize={"2xl"} fontWeight={400}>
-              você já parou para
-            </Text>
+          <Flex flexDir={"column"} align={"center"} textAlign={"center"}>
             <CustomHeading
               color={"white.500"}
               fontSize={"4xl"}
               fontWeight={"bold"}
             >
-              respirar
+              meus interesses
             </CustomHeading>
-            <Text color={"white.500"} fontSize={"2xl"} fontWeight={400}>
-              hoje?
+            <Text color={"rgba(255, 244, 234, 0.6);"} fontSize={"1xl"} fontWeight={400}>
+            fale um pouco sobre o que você gosta e tenha sugestões personalizadas!
             </Text>
           </Flex>
 
-          <Text color={"white.500"} fontSize={"md"}>
-            temos a solução perfeita para que você separe um tempo do seu dia
-            para realizar atividades que você gosta!
+          <CheckboxGroup colorScheme='#CF6E33'>
+            <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={"10px"}>
+              <Stack>
+                <Checkbox color='#FFF4EA' fontWeight={"bold"} value='movies'>filmes</Checkbox>
+                <Checkbox color='#FFF4EA' fontWeight={"bold"} value='tv_shows'>séries</Checkbox>
+              </Stack>
+              <Stack>
+                <Checkbox color='#FFF4EA' fontWeight={"bold"} value='meditation'>meditação</Checkbox>
+                <Checkbox color='#FFF4EA' fontWeight={"bold"} value='exercise'>exercício</Checkbox>
+              </Stack>
+            </Box>
+          </CheckboxGroup>
+
+          <Text color={"#FFF4EA"} fontSize={"20px"} fontWeight={"bold"} textAlign={"center"}>
+          quais são seus gêneros preferidos?
           </Text>
 
+
+          <CheckboxGroup colorScheme='#CF6E33'>
+            <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={10}>
+              <Stack>
+                <Checkbox color='#FFF4EA' fontWeight={"bold"} value='comedy'>comédia</Checkbox>
+                <Checkbox color='#FFF4EA' fontWeight={"bold"} value='drama'>drama</Checkbox>
+              </Stack>
+              <Stack>
+                <Checkbox color='#FFF4EA' fontWeight={"bold"} value='fiction'>ficção</Checkbox>
+                <Checkbox color='#FFF4EA' fontWeight={"bold"} value='fantasy'>fantasia</Checkbox>
+              </Stack>
+            </Box>
+          </CheckboxGroup>
+
           <Flex flexDir={"column"} align={"center"} gap={6}>
-            <Link href="/meus-interesses">
-              <Button
-                color={"darkBlue.500"}
-                w={"28"}
-                size={"lg"}
-                colorScheme={"orange"}
-                boxShadow={"0px 0px 40px 0px #CF6E3366"}
-              >
-                Login
-              </Button>
-            </Link>
             <Button
+              color={"darkBlue.500"}
               w={"28"}
               size={"lg"}
-              borderWidth={2}
               colorScheme={"orange"}
-              variant={"outline"}
-              // boxShadow={"0px 0px 40px 0px #CF6E3399"}
+              boxShadow={"0px 0px 40px 0px #CF6E3366"}
             >
-              Cadastro
+              Continuar
             </Button>
           </Flex>
 
@@ -125,4 +135,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default MyInterests;
