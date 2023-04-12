@@ -82,8 +82,8 @@ const Home: NextPage = () => {
             </Text>
           </Flex>
 
-          <Text color={"white.500"} fontSize={"md"}>
-            temos a solução perfeita para que você separe um tempo do seu dia
+          <Text textAlign={"center"} color={"white.500"} fontSize={"md"}>
+            separe um tempo do seu dia
             para realizar atividades que você gosta!
           </Text>
 
