@@ -9,6 +9,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.5.5",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "framer-motion": "^10.11.5",
     "next": "^13.2.4",
     "next-auth": "^4.21.0",
     "react": "18.2.0",
