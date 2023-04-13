@@ -37,22 +37,24 @@ const Home: NextPage = () => {
             </Text>
           </Flex>
 
-          <Text color={"white.500"} fontSize={"md"}>
-            temos a solução perfeita para que você separe um tempo do seu dia
+          <Text textAlign={"center"} color={"white.500"} fontSize={"md"}>
+            separe um tempo do seu dia
             para realizar atividades que você gosta!
           </Text>
 
           <Flex flexDir={"column"} align={"center"} gap={6}>
-            <Button
-              color={"darkBlue.500"}
-              w={"28"}
-              size={"lg"}
-              colorScheme={"orange"}
-              boxShadow={"0px 0px 40px 0px #CF6E3366"}
-            >
-              Login
-            </Button>
-            <Button
+            <Link href="/meus-interesses">
+              <Button
+                color={"darkBlue.500"}
+                w={"28"}
+                size={"lg"}
+                colorScheme={"orange"}
+                boxShadow={"0px 0px 40px 0px #CF6E3366"}
+              >
+                Vamos lá
+              </Button>
+            </Link>
+            {/* <Button
               w={"28"}
               size={"lg"}
               borderWidth={2}
@@ -61,7 +63,7 @@ const Home: NextPage = () => {
               // boxShadow={"0px 0px 40px 0px #CF6E3399"}
             >
               Cadastro
-            </Button>
+            </Button> */}
           </Flex>
 
           <Icon
