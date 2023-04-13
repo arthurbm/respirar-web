@@ -1,6 +1,7 @@
 import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { AbsoluteImages, CustomHeading } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
 
