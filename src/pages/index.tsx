@@ -1,6 +1,5 @@
 import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
 import { type NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
 import { AbsoluteImages, CustomHeading } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
@@ -8,11 +7,6 @@ import { IconLogo } from "~/components/icons/icon-logo";
 const Home: NextPage = () => {
   return (
     <>
-      <Head>
-        <title>Respirar</title>
-        <meta name="description" content="Programe atividades prazerosas" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
         <Flex
           flexDir={"column"}
@@ -39,8 +33,7 @@ const Home: NextPage = () => {
           </Flex>
 
           <Text textAlign={"center"} color={"white.500"} fontSize={"md"}>
-            separe um tempo do seu dia
-            para realizar atividades que você gosta!
+            separe um tempo do seu dia para realizar atividades que você gosta!
           </Text>
 
           <Flex flexDir={"column"} align={"center"} gap={6}>
