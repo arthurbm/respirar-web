@@ -2,28 +2,52 @@ import {
   Box,
   Button,
   Checkbox,
-  CheckboxGroup,
   Flex,
   Icon,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { type NextPage } from "next";
-import { AbsoluteImages, CustomHeading } from "~/components";
+import {
+  AbsoluteImages,
+  CustomCheckboxGroup,
+  CustomHeading,
+} from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
 import Link from "next/link";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import {
+  InterestsGeneralSchema,
+  type InterestsGeneralValues,
+} from "~/validators/interests-general-validator";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const MyInterests: NextPage = () => {
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid, errors },
+  } = useForm<InterestsGeneralValues>({
+    mode: "onTouched",
+    resolver: zodResolver(InterestsGeneralSchema),
+  });
+
+  const onSubmit: SubmitHandler<InterestsGeneralValues> = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
       <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
         <Flex
+          as={"form"}
           flexDir={"column"}
           align={"center"}
           justify={"center"}
           mx={"16"}
           h={"full"}
           gap={8}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <Flex flexDir={"column"} align={"center"} textAlign={"center"}>
             <CustomHeading
@@ -43,7 +67,12 @@ const MyInterests: NextPage = () => {
             </Text>
           </Flex>
 
-          <CheckboxGroup colorScheme="#CF6E33">
+          <CustomCheckboxGroup
+            name="activities"
+            control={control}
+            defaultValue={[]}
+            colorScheme="#CF6E33"
+          >
             <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={"10px"}>
               <Stack>
                 <Checkbox color="#FFF4EA" fontWeight={"bold"} value="movies">
@@ -66,7 +95,7 @@ const MyInterests: NextPage = () => {
                 </Checkbox>
               </Stack>
             </Box>
-          </CheckboxGroup>
+          </CustomCheckboxGroup>
 
           <Text
             color={"#FFF4EA"}
@@ -77,7 +106,12 @@ const MyInterests: NextPage = () => {
             quais são seus gêneros preferidos?
           </Text>
 
-          <CheckboxGroup colorScheme="#CF6E33">
+          <CustomCheckboxGroup
+            name="genders"
+            control={control}
+            defaultValue={[]}
+            colorScheme="#CF6E33"
+          >
             <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={10}>
               <Stack>
                 <Checkbox color="#FFF4EA" fontWeight={"bold"} value="comedy">
@@ -96,7 +130,7 @@ const MyInterests: NextPage = () => {
                 </Checkbox>
               </Stack>
             </Box>
-          </CheckboxGroup>
+          </CustomCheckboxGroup>
 
           <Flex flexDir={"column"} align={"center"} gap={6}>
             <Link href={"meus-interesses-series"}>
@@ -106,6 +140,8 @@ const MyInterests: NextPage = () => {
                 size={"lg"}
                 colorScheme={"orange"}
                 boxShadow={"0px 0px 40px 0px #CF6E3366"}
+                isDisabled={!isValid}
+                type="submit"
               >
                 Continuar
               </Button>
