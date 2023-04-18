@@ -26,11 +26,12 @@ const MyInterests: NextPage = () => {
   const {
     handleSubmit,
     control,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = useForm<InterestsGeneralValues>({
-    mode: "onTouched",
+    mode: "onChange",
     resolver: zodResolver(InterestsGeneralSchema),
   });
+  // console.log('errors outside', errors)
 
   const onSubmit: SubmitHandler<InterestsGeneralValues> = (data) => {
     console.log(data);
@@ -70,7 +71,7 @@ const MyInterests: NextPage = () => {
           <CustomCheckboxGroup
             name="activities"
             control={control}
-            defaultValue={[]}
+            // defaultValue={[]}
             colorScheme="#CF6E33"
           >
             <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={"10px"}>
