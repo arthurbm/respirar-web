@@ -31,7 +31,6 @@ const MyInterests: NextPage = () => {
     mode: "onChange",
     resolver: zodResolver(InterestsGeneralSchema),
   });
-  // console.log('errors outside', errors)
 
   const onSubmit: SubmitHandler<InterestsGeneralValues> = (data) => {
     console.log(data);
