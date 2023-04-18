@@ -6,6 +6,8 @@ import "~/styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Barlow } from "next/font/google";
 import { theme } from "~/styles/theme";
+import useUserStore from "~/stores/useUserStore";
+import { useEffect } from "react";
 
 const barlow = Barlow({
   weight: ["300", "400", "500", "600", "700"],
@@ -16,6 +18,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
+  const { isLoggedIn } = useUserStore();
+ 
+  useEffect(() => {
+    isLoggedIn();
+  }, [isLoggedIn]);
+  
   return (
     <ChakraProvider theme={theme}>
       <SessionProvider session={session}>

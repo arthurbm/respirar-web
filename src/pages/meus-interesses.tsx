@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Button, Checkbox, CheckboxGroup, Flex, Icon, Stack, Text } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Head from "next/head";
@@ -10,6 +11,8 @@ import ellipseTopBright from "../assets/images/ellipse-top-bright.png";
 import ellipseTopDark from "../assets/images/ellipse-top-dark.png";
 import lineBottom from "../assets/images/line-bottom.png";
 import lineTop from "../assets/images/line-top.png";
+import useUserStore from "~/stores/useUserStore";
+import { useRouter } from "next/router";
 
 function AbsoluteImages() {
   return (
@@ -49,6 +52,9 @@ function AbsoluteImages() {
 }
 
 const MyInterests: NextPage = () => {
+  const { logout } = useUserStore();
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -74,7 +80,7 @@ const MyInterests: NextPage = () => {
               meus interesses
             </CustomHeading>
             <Text color={"rgba(255, 244, 234, 0.6);"} fontSize={"1xl"} fontWeight={400}>
-            fale um pouco sobre o que você gosta e tenha sugestões personalizadas!
+              fale um pouco sobre o que você gosta e tenha sugestões personalizadas!
             </Text>
           </Flex>
 
@@ -92,7 +98,7 @@ const MyInterests: NextPage = () => {
           </CheckboxGroup>
 
           <Text color={"#FFF4EA"} fontSize={"20px"} fontWeight={"bold"} textAlign={"center"}>
-          quais são seus gêneros preferidos?
+            quais são seus gêneros preferidos?
           </Text>
 
 
@@ -118,6 +124,19 @@ const MyInterests: NextPage = () => {
               boxShadow={"0px 0px 40px 0px #CF6E3366"}
             >
               Continuar
+            </Button>
+          </Flex>
+
+          <Flex flexDir={"column"} align={"center"} gap={6}>
+            <Button
+              color={"darkBlue.500"}
+              w={"28"}
+              size={"lg"}
+              colorScheme={"orange"}
+              boxShadow={"0px 0px 40px 0px #CF6E3366"}
+              onClick={() => logout(router)}
+            >
+              Logout
             </Button>
           </Flex>
 

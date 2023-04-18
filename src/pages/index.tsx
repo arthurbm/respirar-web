@@ -11,6 +11,9 @@ import ellipseTopDark from "../assets/images/ellipse-top-dark.png";
 import lineBottom from "../assets/images/line-bottom.png";
 import lineTop from "../assets/images/line-top.png";
 import Link from "next/link";
+import useUserStore from "~/stores/useUserStore";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 function AbsoluteImages() {
   return (
@@ -50,6 +53,15 @@ function AbsoluteImages() {
 }
 
 const Home: NextPage = () => {
+  const router = useRouter();
+  const { protectPage } = useUserStore();
+
+  useEffect(() => {
+    void (async () => {
+      await protectPage(false, router);
+    })()
+  }, [])
+
   return (
     <>
       <Head>
@@ -88,7 +100,7 @@ const Home: NextPage = () => {
           </Text>
 
           <Flex flexDir={"column"} align={"center"} gap={6}>
-            <Link href="/meus-interesses">
+            <Link href="/login">
               <Button
                 color={"darkBlue.500"}
                 w={"28"}
@@ -99,16 +111,18 @@ const Home: NextPage = () => {
                 Login
               </Button>
             </Link>
-            <Button
-              w={"28"}
-              size={"lg"}
-              borderWidth={2}
-              colorScheme={"orange"}
-              variant={"outline"}
+            <Link href="/cadastro">
+              <Button
+                w={"28"}
+                size={"lg"}
+                borderWidth={2}
+                colorScheme={"orange"}
+                variant={"outline"}
               // boxShadow={"0px 0px 40px 0px #CF6E3399"}
-            >
-              Cadastro
-            </Button>
+              >
+                Cadastro
+              </Button>
+            </Link>
           </Flex>
 
           <Icon
