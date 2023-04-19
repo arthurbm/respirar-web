@@ -13,6 +13,7 @@ import {
   type InterestsSeriesValues,
 } from "~/validators/interests-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormStore } from "~/store/useFormStore";
 
 const MyInterestsSeries: NextPage = () => {
   const options = [
@@ -47,13 +48,17 @@ const MyInterestsSeries: NextPage = () => {
     resolver: zodResolver(InterestsSeriesSchema),
   });
 
+  const { setInterestsSeries } = useFormStore();
+
   const onSubmit = (data: InterestsSeriesValues) => {
     console.log(data);
+    setInterestsSeries(data);
+
     toast({
       title: "Formulário respondido com sucesso!",
       status: "success",
       duration: 3000,
-    })
+    });
   };
 
   const serie = watch("serie");

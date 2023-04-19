@@ -28,7 +28,6 @@ export function CustomCheckboxGroup({
     control,
   });
 
-  console.log("errors", errors);
   const hasErroKey = Object.keys(errors).includes(name);
 
   return (

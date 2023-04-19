@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { type InterestsGeneralValues, type InterestsSeriesValues } from '~/validators/interests-validator';
 
 // Define the state interface
 interface MultipartFormState {
-  formData: InterestsGeneralValues & InterestsSeriesValues;
   interestsGeneral: InterestsGeneralValues;
   interestsSeries: InterestsSeriesValues;
   setInterestsGeneral: (values: InterestsGeneralValues) => void;
   setInterestsSeries: (values: InterestsSeriesValues) => void;
+  getFormData: () => InterestsGeneralValues & InterestsSeriesValues;
 }
 
 // Create the initial state
@@ -21,13 +20,13 @@ const initialState: MultipartFormState = {
   interestsSeries: {
     serie: '',
   },
-  formData: {} as InterestsGeneralValues & InterestsSeriesValues,
-  setInterestsGeneral: () => {},
-  setInterestsSeries: () => {},
+  setInterestsGeneral: () => ({} as InterestsGeneralValues),
+  setInterestsSeries: () => ({} as InterestsSeriesValues),
+  getFormData: () => ({} as InterestsGeneralValues & InterestsSeriesValues),
 };
 
 // Create the Zustand store
-export const useMultipartFormStore = create(
+export const useFormStore = create(
   immer<MultipartFormState>((set, get) => ({
     ...initialState,
     setInterestsGeneral: (values) =>

@@ -21,6 +21,7 @@ import {
   type InterestsGeneralValues,
 } from "~/validators/interests-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormStore } from "~/store/useFormStore";
 
 const MyInterests: NextPage = () => {
   const {
@@ -32,8 +33,11 @@ const MyInterests: NextPage = () => {
     resolver: zodResolver(InterestsGeneralSchema),
   });
 
+  const { setInterestsGeneral } = useFormStore();
+
   const onSubmit: SubmitHandler<InterestsGeneralValues> = (data) => {
     console.log(data);
+    setInterestsGeneral(data);
   };
 
   return (
