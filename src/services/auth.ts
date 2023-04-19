@@ -5,28 +5,33 @@ import { type NextRouter } from "next/router";
 
 import httpClient from "./http";
 import { type User, type UserLogin } from "~/types/user";
+import { type AxiosError } from "axios";
+
+export type ResponseData = {
+  access_token: string;
+  user: User;
+  statusCode: number;
+}
 
 export type Response = {
-  data: {
-    access_token: string;
-    user: User
-  }
+  data: ResponseData
 }
 
 export async function login({ email, password }: UserLogin) {
   try {
-    const response: Response = await httpClient.post("/auth/login", {
+    const { data }: Response = await httpClient.post("/auth/login", {
       email,
       password,
     });
 
-    setCookie(undefined, "access_token", response.data.access_token, {
+    setCookie(undefined, "access_token", data.access_token, {
       secure: false,
       maxAge: 60 * 60 * 12,
     });
-    return response.data.user;
-  } catch (error: any) {
-    if (error?.response?.data?.statusCode === 401) {
+    return data.user;
+  } catch (error: unknown) {
+    const err: AxiosError<ResponseData> = error as AxiosError<ResponseData>;
+    if (err?.response?.data.statusCode === 401) {
       throw new Error("Dados de acesso incorretos");
     } else {
       throw new Error("Ocorreu um erro ao realizar o login");

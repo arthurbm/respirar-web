@@ -1,5 +1,16 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Box, Button, Flex, Icon, Text, FormControl, FormLabel, Input, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Text,
+  FormControl,
+  FormLabel,
+  Input,
+  useToast,
+  Center,
+} from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { AbsoluteImages, CustomHeading } from "~/components";
@@ -8,7 +19,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import useUserStore from "~/stores/useUserStore";
 import { useRouter } from "next/router";
-import { FaGoogle } from "react-icons/fa";
+import { FcGoogle } from 'react-icons/fc';
 import httpClient from "~/services/http";
 
 const Login: NextPage = () => {
@@ -17,24 +28,24 @@ const Login: NextPage = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
-  const { login, protectPage } = useUserStore()
-  
+
+  const { login, protectPage } = useUserStore();
+
   void protectPage(false, router);
-  
+
   const [googleUrl, setGoogleUrl] = useState("");
 
   useEffect(() => {
     const apiUrl = httpClient.defaults.baseURL || "http://localhost:3001/";
-    const googleUrl = apiUrl + "auth/google?redirectUrl=" + window.location.origin;
+    const googleUrl =
+      apiUrl + "auth/google?redirectUrl=" + window.location.origin;
     setGoogleUrl(googleUrl);
-  }, [])
-
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await login({ email, password }, router)
+      await login({ email, password }, router);
     } catch (error) {
       if (error instanceof Error) {
         toast({
@@ -42,12 +53,10 @@ const Login: NextPage = () => {
           status: "error",
           duration: 3000,
           isClosable: true,
-          position: 'top'
         });
       }
     }
   };
-
 
   return (
     <>
@@ -79,9 +88,7 @@ const Login: NextPage = () => {
             <form onSubmit={handleSubmit}>
               <Flex gap={5} flexDir={"column"} align={"center"}>
                 <FormControl id="email">
-                  <FormLabel color="#FFF4EA">
-                    email
-                  </FormLabel>
+                  <FormLabel color="#FFF4EA">email</FormLabel>
 
                   <Input
                     type="email"
@@ -95,14 +102,11 @@ const Login: NextPage = () => {
                     border="1px solid #CF6E33"
                     borderRadius="8px"
                     px="11px"
-
                   />
                 </FormControl>
 
                 <FormControl id="password">
-                  <FormLabel color="#FFF4EA">
-                    senha
-                  </FormLabel>
+                  <FormLabel color="#FFF4EA">senha</FormLabel>
 
                   <Input
                     type="password"
@@ -131,32 +135,47 @@ const Login: NextPage = () => {
                     Login
                   </Button>
 
-                  <Text color="#CF6E33" fontSize="20px" fontWeight="bold" textAlign="center">
+                  <Text
+                    color="#CF6E33"
+                    fontSize="20px"
+                    fontWeight="bold"
+                    textAlign="center"
+                  >
                     ou
                   </Text>
 
                   <Link href={googleUrl}>
                     <Button
-                      leftIcon={<FaGoogle />}
-                      colorScheme="red"
+                      w={"full"}
+                      variant={"outline"}
+                      textColor={"white.500"}
+                      leftIcon={<FcGoogle />}
+                      _hover={{ textColor: "darkBlue.500", bgColor: "white.500" }}
                     >
-                      Entrar com o Google
+                      <Center>
+                        <Text>Entrar com o Google</Text>
+                      </Center>
                     </Button>
                   </Link>
-
                 </Flex>
               </Flex>
             </form>
           </Box>
 
           <Flex flexDir={"column"} alignItems={"center"}>
-            <Text color="#CF6E33" fontSize="20px" fontWeight="bold" textAlign="center">
+            <Text
+              color="#CF6E33"
+              fontSize="20px"
+              fontWeight="bold"
+              textAlign="center"
+            >
               não tem uma conta?{" "}
-            </Text>;
-
+            </Text>
+            ;
             <Link href="/cadastro">
               <Text
-                color="#CF6E33" fontSize="20px"
+                color="#CF6E33"
+                fontSize="20px"
                 fontWeight="bold"
                 textDecoration="underline"
               >
@@ -164,8 +183,6 @@ const Login: NextPage = () => {
               </Text>
             </Link>
           </Flex>
-
-
 
           <Icon
             position={"absolute"}
