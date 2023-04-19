@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { parseCookies } from "nookies";
 import create from "zustand";
 
@@ -20,12 +21,11 @@ const useUserStore = create<userState>((set) => ({
   login: async ({ email, password }: UserLogin, router) => {
     try {
       const userData: User = await login({ email, password });
-
       await router.push("/meus-interesses");
 
       set({ user: userData, isLogged: true });
     } catch (error) {
-      console.log(error);
+      throw error
     }
   },
   logout: async (router) => {

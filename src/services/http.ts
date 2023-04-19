@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import axios from "axios";
 import { destroyCookie, parseCookies } from "nookies";
 
@@ -22,11 +22,13 @@ httpClient.interceptors.response.use(
   (error) => {
     const originalRequest = error.config;
 
-    if (error?.response?.status === 401 && !originalRequest._retry) {
+    if (error?.response?.status === 401 && !originalRequest?._retry) {
       originalRequest._retry = true;
       destroyCookie(undefined, "access_token");
       setTimeout(() => {
-        window.location.replace("/login");
+        if (window.location.pathname !== "/login") {
+          window.location.replace("/login");
+        }
       }, 600);
     }
 

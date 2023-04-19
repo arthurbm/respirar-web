@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { Box, Button, Flex, Icon, Text, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, FormControl, FormLabel, Input, useToast } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
@@ -55,17 +55,29 @@ function AbsoluteImages() {
 
 const Login: NextPage = () => {
   const router = useRouter();
+  const toast = useToast();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login } = useUserStore()
+  const { login, protectPage } = useUserStore()
 
-  // const handlePasswordVisibility = () => setShowPassword(!showPassword);
+  void protectPage(false, router);
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await login({ email, password }, router)
+    try {
+      await login({ email, password }, router)
+    } catch (error) {
+      toast({
+        title: error.message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: 'top'
+      });
+    }
   };
 
 
@@ -164,7 +176,6 @@ const Login: NextPage = () => {
             <Link href="/cadastro">
               <Text
                 color="#CF6E33" fontSize="20px"
-                as="a"
                 fontWeight="bold"
                 textDecoration="underline"
               >

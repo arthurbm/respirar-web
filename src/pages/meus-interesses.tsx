@@ -52,8 +52,10 @@ function AbsoluteImages() {
 }
 
 const MyInterests: NextPage = () => {
-  const { logout } = useUserStore();
+  const { logout, protectPage } = useUserStore();
   const router = useRouter();
+
+  void protectPage(true, router);
 
   return (
     <>

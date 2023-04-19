@@ -56,11 +56,7 @@ const Home: NextPage = () => {
   const router = useRouter();
   const { protectPage } = useUserStore();
 
-  useEffect(() => {
-    void (async () => {
-      await protectPage(false, router);
-    })()
-  }, [])
+  void protectPage(false, router);
 
   return (
     <>

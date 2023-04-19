@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { destroyCookie, setCookie } from "nookies";
 
 import httpClient from "./http";
@@ -19,11 +21,15 @@ export async function login({ email, password }: UserLogin) {
 
     setCookie(undefined, "access_token", response.data.access_token, {
       secure: false,
-      maxAge: 60 * 60 * 4,
+      maxAge: 60 * 60 * 12,
     });
     return response.data.user;
-  } catch (error) {
-    throw error;
+  } catch (error: any) {
+    if (error?.response?.data?.statusCode === 401) {
+      throw new Error("Dados de acesso incorretos");
+    } else {
+      throw new Error("Ocorreu um erro ao realizar o login");
+    }
   }
 }
 

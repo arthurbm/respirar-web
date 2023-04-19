@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Box, Button, Flex, Icon, Text, FormControl, FormLabel, Input, useToast } from "@chakra-ui/react";
 import { type NextPage } from "next";
@@ -6,7 +7,6 @@ import Image from "next/image";
 import { CustomHeading } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
 import ellipseBottomBright from "../assets/images/ellipse-bottom-bright.png";
-import ellipseBottomDark from "../assets/images/ellipse-bottom-dark.png";
 import ellipseTopBright from "../assets/images/ellipse-top-bright.png";
 import ellipseTopDark from "../assets/images/ellipse-top-dark.png";
 import lineBottom from "../assets/images/line-bottom.png";
@@ -16,16 +16,10 @@ import { useState } from "react";
 import useUserStore from "~/stores/useUserStore";
 import { useRouter } from "next/router";
 import { createUser } from "~/services/user";
-import { makeToastObject } from "./utils/toast";
 
 function AbsoluteImages() {
   return (
     <>
-      <Image
-        src={ellipseBottomDark}
-        alt={"Ellipse bottom dark"}
-        style={{ position: "absolute", bottom: 0, right: 0 }}
-      />
       <Image
         src={ellipseBottomBright}
         alt={"Ellipse bottom bright"}
@@ -64,11 +58,23 @@ const Register: NextPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const toast = useToast();
 
-  const { login } = useUserStore()
+  const { login, protectPage } = useUserStore()
+
+  void protectPage(false, router);
+
+  const showToast = (title: string, status: "error" | "success") => {
+    toast({
+      title,
+      status,
+      duration: 3000,
+      isClosable: true,
+      position: 'top'
+    });
+  }
 
   const checkPasswords = () => {
     if (password !== confirmPassword) {
-      toast(makeToastObject("As senhas devem ser iguais", "error"))
+      showToast("As senhas devem ser iguais", "error")
       return false;
     }
     return true;
@@ -79,10 +85,15 @@ const Register: NextPage = () => {
     const passed = checkPasswords();
 
     if (passed) {
-      const user = await createUser({ name, email, password })
+      try {
+        const user = await createUser({ name, email, password });
 
-      if (user) {
-        await login({ email, password }, router)
+        if (user) {
+          showToast("Conta criada com sucesso!", "success")
+          await login({ email, password }, router);
+        }
+      } catch (error) {
+        showToast(error?.message, "error")
       }
     }
   };
@@ -215,18 +226,21 @@ const Register: NextPage = () => {
             </form>
           </Box>
 
-          <Text color="#CF6E33" fontSize="20px" fontWeight="bold" textAlign="center">
-            já tem conta?{" "}
+          <Flex flexDir={"column"} alignItems={"center"}>
+            <Text color="#CF6E33" fontSize="20px" fontWeight="bold" textAlign="center">
+              já tem uma conta?{" "}
+            </Text>;
+
             <Link href="/login">
               <Text
-                as="a"
+                color="#CF6E33" fontSize="20px"
                 fontWeight="bold"
                 textDecoration="underline"
               >
                 faça o login
               </Text>
             </Link>
-          </Text>;
+          </Flex>
 
 
           <Icon
@@ -236,7 +250,7 @@ const Register: NextPage = () => {
             w={29}
             h={37}
           />
-        </Flex >
+        </Flex>
       </Box >
       <AbsoluteImages />
     </>
