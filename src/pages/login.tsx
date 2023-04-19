@@ -2,65 +2,18 @@
 import { Box, Button, Flex, Icon, Text, FormControl, FormLabel, Input, useToast } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import { CustomHeading } from "~/components";
+import { AbsoluteImages, CustomHeading } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
-import ellipseBottomBright from "../assets/images/ellipse-bottom-bright.png";
-import ellipseBottomDark from "../assets/images/ellipse-bottom-dark.png";
-import ellipseTopBright from "../assets/images/ellipse-top-bright.png";
-import ellipseTopDark from "../assets/images/ellipse-top-dark.png";
-import lineBottom from "../assets/images/line-bottom.png";
-import lineTop from "../assets/images/line-top.png";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import useUserStore from "~/stores/useUserStore";
 import { useRouter } from "next/router";
 import { FaGoogle } from "react-icons/fa";
 import httpClient from "~/services/http";
-import { googleLogin } from "~/services/auth";
-
-function AbsoluteImages() {
-  return (
-    <>
-      <Image
-        src={ellipseBottomDark}
-        alt={"Ellipse bottom dark"}
-        style={{ position: "absolute", bottom: 0, right: 0 }}
-      />
-      <Image
-        src={ellipseBottomBright}
-        alt={"Ellipse bottom bright"}
-        style={{ position: "absolute", bottom: 0, right: 0 }}
-      />
-      <Image
-        src={ellipseTopDark}
-        alt={"Ellipse top dark"}
-        style={{ position: "absolute", top: 0, left: 0 }}
-      />
-      <Image
-        src={ellipseTopBright}
-        alt={"Ellipse top bright"}
-        style={{ position: "absolute", top: 0, left: 0 }}
-      />
-      <Image
-        src={lineBottom}
-        alt={"Line bottom"}
-        style={{ position: "absolute", bottom: 0, right: 0 }}
-      />
-      <Image
-        src={lineTop}
-        alt={"Line top"}
-        style={{ position: "absolute", top: 0, left: 0 }}
-      />
-    </>
-  );
-}
 
 const Login: NextPage = () => {
   const router = useRouter();
   const toast = useToast();
-
-
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

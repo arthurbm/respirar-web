@@ -4,13 +4,14 @@ import { SessionProvider } from "next-auth/react";
 
 import "~/styles/globals.css";
 import { ChakraProvider } from "@chakra-ui/react";
-import { Barlow } from "next/font/google";
+import { Roboto } from "next/font/google";
 import { theme } from "~/styles/theme";
 import useUserStore from "~/stores/useUserStore";
 import { useEffect } from "react";
+import Head from "next/head";
 
-const barlow = Barlow({
-  weight: ["300", "400", "500", "600", "700"],
+const roboto = Roboto({
+  weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
 });
 
@@ -27,7 +28,12 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <ChakraProvider theme={theme}>
       <SessionProvider session={session}>
-        <main className={barlow.className}>
+        <Head>
+          <title>Respirar</title>
+          <meta name="description" content="Programe atividades prazerosas" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <main className={roboto.className}>
           <Component {...pageProps} />
         </main>
       </SessionProvider>

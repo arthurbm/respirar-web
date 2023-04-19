@@ -20,12 +20,12 @@ export const IconLogo: React.FC = (props: IconProps) => (
       <path
         d="M25.35 18.5C25.35 13.1812 21.8812 7.4 15.175 7.4"
         stroke="#FFF4EA"
-        stroke-width="1.85"
+        strokeWidth="1.85"
       />
       <path
         d="M8.70001 27.75L8.70001 19.061C8.75677 17.346 9.36921 15.8328 10.55 15.0312"
         stroke="#FFF4EA"
-        stroke-width="1.85"
+        strokeWidth="1.85"
       />
       <defs>
         <filter
@@ -35,9 +35,9 @@ export const IconLogo: React.FC = (props: IconProps) => (
           width="27.3389"
           height="27.3389"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
