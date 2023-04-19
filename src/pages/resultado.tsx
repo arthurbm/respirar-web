@@ -2,7 +2,7 @@ import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import { AbsoluteImages, CustomHeading } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
-import { useFormStore } from "~/store/useFormStore";
+import { useFormStore } from "~/stores/useFormStore";
 
 const Result: NextPage = () => {
   const { getFormData } = useFormStore();

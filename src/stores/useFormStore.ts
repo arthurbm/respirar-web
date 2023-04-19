@@ -12,12 +12,9 @@ interface MultipartFormState {
 }
 
 // Create the initial state
-const initialState: MultipartFormState = {
+const initialState = {
   interestsGeneral: {} as InterestsGeneralValues,
   interestsSeries: {} as InterestsSeriesValues,
-  setInterestsGeneral: () => ({} as InterestsGeneralValues),
-  setInterestsSeries: () => ({} as InterestsSeriesValues),
-  getFormData: () => ({} as InterestsGeneralValues & InterestsSeriesValues),
 };
 
 // Create the Zustand store

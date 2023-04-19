@@ -13,7 +13,7 @@ import {
   type InterestsSeriesValues,
 } from "~/validators/interests-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFormStore } from "~/store/useFormStore";
+import { useFormStore } from "~/stores/useFormStore";
 import { useRouter } from "next/router";
 
 const MyInterestsSeries: NextPage = () => {
