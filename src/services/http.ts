@@ -4,7 +4,8 @@ import axios from "axios";
 import { destroyCookie, parseCookies } from "nookies";
 
 const httpClient = axios.create({
-  baseURL: "http://localhost:3001/",
+  // baseURL: "http://localhost:3001/",
+  baseURL: "https://respirar-server-node.onrender.com/"
 });
 
 httpClient.interceptors.request.use((config) => {
