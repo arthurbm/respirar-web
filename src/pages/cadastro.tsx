@@ -93,7 +93,9 @@ const Register: NextPage = () => {
           await login({ email, password }, router);
         }
       } catch (error) {
-        showToast(error?.message, "error")
+        if (error instanceof Error){
+          showToast(error?.message, "error")
+        }
       }
     }
   };

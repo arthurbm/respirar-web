@@ -12,9 +12,12 @@ import ellipseTopDark from "../assets/images/ellipse-top-dark.png";
 import lineBottom from "../assets/images/line-bottom.png";
 import lineTop from "../assets/images/line-top.png";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useUserStore from "~/stores/useUserStore";
 import { useRouter } from "next/router";
+import { FaGoogle } from "react-icons/fa";
+import httpClient from "~/services/http";
+import { googleLogin } from "~/services/auth";
 
 function AbsoluteImages() {
   return (
@@ -57,12 +60,22 @@ const Login: NextPage = () => {
   const router = useRouter();
   const toast = useToast();
 
+
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const { login, protectPage } = useUserStore()
-
+  
   void protectPage(false, router);
+  
+  const [googleUrl, setGoogleUrl] = useState("");
+
+  useEffect(() => {
+    const apiUrl = httpClient.defaults.baseURL || "http://localhost:3001/";
+    const googleUrl = apiUrl + "auth/google?redirectUrl=" + window.location.origin;
+    setGoogleUrl(googleUrl);
+  }, [])
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -70,13 +83,15 @@ const Login: NextPage = () => {
     try {
       await login({ email, password }, router)
     } catch (error) {
-      toast({
-        title: error.message,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-        position: 'top'
-      });
+      if (error instanceof Error) {
+        toast({
+          title: error.message,
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: 'top'
+        });
+      }
     }
   };
 
@@ -151,7 +166,7 @@ const Login: NextPage = () => {
                   />
                 </FormControl>
 
-                <Flex flexDir={"column"} align={"center"} gap={6}>
+                <Flex flexDir={"column"} align={"center"} gap={2}>
                   <Button
                     color={"darkBlue.500"}
                     w={"28"}
@@ -162,6 +177,19 @@ const Login: NextPage = () => {
                   >
                     Login
                   </Button>
+
+                  <Text color="#CF6E33" fontSize="20px" fontWeight="bold" textAlign="center">
+                    ou
+                  </Text>
+
+                  <Link href={googleUrl}>
+                    <Button
+                      leftIcon={<FaGoogle />}
+                      colorScheme="red"
+                    >
+                      Entrar com o Google
+                    </Button>
+                  </Link>
 
                 </Flex>
               </Flex>

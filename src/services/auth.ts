@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { destroyCookie, setCookie } from "nookies";
+import { type NextRouter } from "next/router";
 
 import httpClient from "./http";
 import { type User, type UserLogin } from "~/types/user";
@@ -41,4 +42,15 @@ export function logout() {
   }
 }
 
+export async function googleLogin(token: string, router: NextRouter) {
+  try {
+    setCookie(undefined, "access_token", token, {
+      secure: false,
+      maxAge: 60 * 60 * 12,
+    });
 
+    await router.push('/meus-interesses')
+  } catch (error) {
+    await router.push('/login')
+  }
+}
