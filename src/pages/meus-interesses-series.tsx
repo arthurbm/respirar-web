@@ -1,23 +1,75 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  Flex,
-  Icon,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, useToast } from "@chakra-ui/react";
 import { type NextPage } from "next";
-import { AbsoluteImages, CustomHeading } from "~/components";
+import { AbsoluteImages, CustomHeading, RadioBallGroup } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
-import Link from "next/link";
+import modernFamily from "../assets/images/modern-family.png";
+import friends from "../assets/images/friends.png";
+import howIMetYourMother from "../assets/images/himym.png";
+import theOffice from "../assets/images/the-office.png";
+import { type SubmitHandler, useForm } from "react-hook-form";
+import {
+  InterestsSeriesSchema,
+  type InterestsSeriesValues,
+} from "~/validators/interests-validator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormStore } from "~/store/useFormStore";
+import { useRouter } from "next/router";
 
 const MyInterestsSeries: NextPage = () => {
+  const options = [
+    {
+      title: "Friends",
+      image: friends,
+    },
+    {
+      title: "How I met your mother",
+      image: howIMetYourMother,
+    },
+    {
+      title: "Modern Family",
+      image: modernFamily,
+    },
+    {
+      title: "The Office",
+      image: theOffice,
+    },
+  ];
+
+  const toast = useToast();
+
+  const {
+    handleSubmit,
+    watch,
+    setValue,
+    trigger,
+    formState: { isValid },
+  } = useForm<InterestsSeriesValues>({
+    mode: "onChange",
+    resolver: zodResolver(InterestsSeriesSchema),
+  });
+
+  const { setInterestsSeries } = useFormStore();
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<InterestsSeriesValues> = async (data) => {
+    console.log(data);
+    setInterestsSeries(data);
+    toast({
+      title: "Formulário respondido com sucesso!",
+      status: "success",
+      duration: 3000,
+    });
+    await router.push("/resultado");
+  };
+
+  const serie = watch("serie");
+
   return (
     <>
       <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
         <Flex
+          as={"form"}
+          onSubmit={handleSubmit(onSubmit)}
           flexDir={"column"}
           align={"center"}
           justify={"center"}
@@ -34,7 +86,7 @@ const MyInterestsSeries: NextPage = () => {
               meus interesses
             </CustomHeading>
           </Flex>
-          S
+
           <Text
             color={"#FFF4EA"}
             fontSize={"20px"}
@@ -43,39 +95,31 @@ const MyInterestsSeries: NextPage = () => {
           >
             você tem uma série de conforto?
           </Text>
-          <CheckboxGroup colorScheme="#CF6E33">
-            <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={10}>
-              <Stack>
-                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="comedy">
-                  Friends
-                </Checkbox>
-                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="drama">
-                  How I met your mother
-                </Checkbox>
-              </Stack>
-              <Stack>
-                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="fiction">
-                  Modern Family
-                </Checkbox>
-                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="fantasy">
-                  The Office
-                </Checkbox>
-              </Stack>
-            </Box>
-          </CheckboxGroup>
+
+          <RadioBallGroup
+            options={options}
+            name="series"
+            value={serie}
+            onChange={async (value) => {
+              setValue("serie", value);
+              await trigger("serie");
+            }}
+          />
+
           <Flex flexDir={"column"} align={"center"} gap={6}>
-            <Link href={"/resultado"}>
-              <Button
-                color={"darkBlue.500"}
-                w={"28"}
-                size={"lg"}
-                colorScheme={"orange"}
-                boxShadow={"0px 0px 40px 0px #CF6E3366"}
-              >
-                Continuar
-              </Button>
-            </Link>
+            <Button
+              color={"darkBlue.500"}
+              w={"28"}
+              size={"lg"}
+              colorScheme={"orange"}
+              boxShadow={"0px 0px 40px 0px #CF6E3366"}
+              type={"submit"}
+              isDisabled={!isValid}
+            >
+              Enviar
+            </Button>
           </Flex>
+
           <Icon
             position={"absolute"}
             bottom={"10"}

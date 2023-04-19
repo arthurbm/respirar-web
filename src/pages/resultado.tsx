@@ -2,8 +2,13 @@ import { Box, Flex, Icon, Text } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import { AbsoluteImages, CustomHeading } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
+import { useFormStore } from "~/store/useFormStore";
 
 const Result: NextPage = () => {
+  const { getFormData } = useFormStore();
+
+  console.log(getFormData());
+
   return (
     <>
       <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>

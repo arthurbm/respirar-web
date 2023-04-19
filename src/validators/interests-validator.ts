@@ -7,3 +7,10 @@ export const InterestsGeneralSchema = z.object({
 
 // infer the type from the schema
 export type InterestsGeneralValues = z.infer<typeof InterestsGeneralSchema>;
+
+export const InterestsSeriesSchema = z.object({
+  serie: z.string().nonempty('Selecione uma série'),
+})
+
+// infer the type from the schema
+export type InterestsSeriesValues = z.infer<typeof InterestsSeriesSchema>;
