@@ -36,6 +36,7 @@ const MyInterestsSeries: NextPage = () => {
   ];
 
   const toast = useToast();
+  const { setInterestsSeries, interestsSeries } = useFormStore();
 
   const {
     handleSubmit,
@@ -46,9 +47,9 @@ const MyInterestsSeries: NextPage = () => {
   } = useForm<InterestsSeriesValues>({
     mode: "onChange",
     resolver: zodResolver(InterestsSeriesSchema),
+    defaultValues: interestsSeries,
   });
 
-  const { setInterestsSeries } = useFormStore();
   const router = useRouter();
 
   const onSubmit: SubmitHandler<InterestsSeriesValues> = async (data) => {

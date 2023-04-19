@@ -24,6 +24,8 @@ import { useFormStore } from "~/store/useFormStore";
 import { useRouter } from "next/router";
 
 const MyInterests: NextPage = () => {
+  const { setInterestsGeneral, interestsGeneral } = useFormStore();
+
   const {
     handleSubmit,
     control,
@@ -31,9 +33,8 @@ const MyInterests: NextPage = () => {
   } = useForm<InterestsGeneralValues>({
     mode: "onChange",
     resolver: zodResolver(InterestsGeneralSchema),
+    defaultValues: interestsGeneral,
   });
-
-  const { setInterestsGeneral } = useFormStore();
 
   const router = useRouter();
 
