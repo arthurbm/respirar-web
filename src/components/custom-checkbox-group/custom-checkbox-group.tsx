@@ -6,7 +6,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { type Control, useController } from "react-hook-form";
-import { type InterestsGeneralValues } from "~/validators/interests-general-validator";
+import { type InterestsGeneralValues } from "~/validators/interests-validator";
 
 export type CustomCheckboxGroupProps = {
   name: keyof InterestsGeneralValues;

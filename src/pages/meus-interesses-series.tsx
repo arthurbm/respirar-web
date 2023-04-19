@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  CheckboxGroup,
-  Flex,
-  Icon,
-  Stack,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, useToast } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import { AbsoluteImages, CustomHeading, RadioBallGroup } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
@@ -16,7 +7,12 @@ import modernFamily from "../assets/images/modern-family.png";
 import friends from "../assets/images/friends.png";
 import howIMetYourMother from "../assets/images/himym.png";
 import theOffice from "../assets/images/the-office.png";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import {
+  InterestsSeriesSchema,
+  type InterestsSeriesValues,
+} from "~/validators/interests-validator";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const MyInterestsSeries: NextPage = () => {
   const options = [
@@ -38,12 +34,36 @@ const MyInterestsSeries: NextPage = () => {
     },
   ];
 
-  const [value, setValue] = useState("");
+  const toast = useToast();
+
+  const {
+    handleSubmit,
+    watch,
+    setValue,
+    trigger,
+    formState: { isValid },
+  } = useForm<InterestsSeriesValues>({
+    mode: "onChange",
+    resolver: zodResolver(InterestsSeriesSchema),
+  });
+
+  const onSubmit = (data: InterestsSeriesValues) => {
+    console.log(data);
+    toast({
+      title: "Formulário respondido com sucesso!",
+      status: "success",
+      duration: 3000,
+    })
+  };
+
+  const serie = watch("serie");
 
   return (
     <>
       <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
         <Flex
+          as={"form"}
+          onSubmit={handleSubmit(onSubmit)}
           flexDir={"column"}
           align={"center"}
           justify={"center"}
@@ -73,8 +93,11 @@ const MyInterestsSeries: NextPage = () => {
           <RadioBallGroup
             options={options}
             name="series"
-            value={value}
-            onChange={(value) => setValue(value)}
+            value={serie}
+            onChange={async (value) => {
+              setValue("serie", value);
+              await trigger("serie");
+            }}
           />
 
           <Flex flexDir={"column"} align={"center"} gap={6}>
@@ -85,8 +108,10 @@ const MyInterestsSeries: NextPage = () => {
                 size={"lg"}
                 colorScheme={"orange"}
                 boxShadow={"0px 0px 40px 0px #CF6E3366"}
+                type={"submit"}
+                isDisabled={!isValid}
               >
-                Continuar
+                Enviar
               </Button>
             </Link>
           </Flex>

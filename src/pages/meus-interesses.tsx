@@ -19,7 +19,7 @@ import { type SubmitHandler, useForm } from "react-hook-form";
 import {
   InterestsGeneralSchema,
   type InterestsGeneralValues,
-} from "~/validators/interests-general-validator";
+} from "~/validators/interests-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const MyInterests: NextPage = () => {
