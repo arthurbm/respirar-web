@@ -9,11 +9,37 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { type NextPage } from "next";
-import { AbsoluteImages, CustomHeading } from "~/components";
+import { AbsoluteImages, CustomHeading, RadioBallGroup } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
 import Link from "next/link";
+import modernFamily from "../assets/images/modern-family.png";
+import friends from "../assets/images/friends.png";
+import howIMetYourMother from "../assets/images/himym.png";
+import theOffice from "../assets/images/the-office.png";
+import { useState } from "react";
 
 const MyInterestsSeries: NextPage = () => {
+  const options = [
+    {
+      title: "Friends",
+      image: friends,
+    },
+    {
+      title: "How I met your mother",
+      image: howIMetYourMother,
+    },
+    {
+      title: "Modern Family",
+      image: modernFamily,
+    },
+    {
+      title: "The Office",
+      image: theOffice,
+    },
+  ];
+
+  const [value, setValue] = useState("");
+
   return (
     <>
       <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
@@ -34,7 +60,7 @@ const MyInterestsSeries: NextPage = () => {
               meus interesses
             </CustomHeading>
           </Flex>
-          S
+
           <Text
             color={"#FFF4EA"}
             fontSize={"20px"}
@@ -43,26 +69,14 @@ const MyInterestsSeries: NextPage = () => {
           >
             você tem uma série de conforto?
           </Text>
-          <CheckboxGroup colorScheme="#CF6E33">
-            <Box display="grid" gridTemplateColumns="1fr 1fr" gridGap={10}>
-              <Stack>
-                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="comedy">
-                  Friends
-                </Checkbox>
-                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="drama">
-                  How I met your mother
-                </Checkbox>
-              </Stack>
-              <Stack>
-                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="fiction">
-                  Modern Family
-                </Checkbox>
-                <Checkbox color="#FFF4EA" fontWeight={"bold"} value="fantasy">
-                  The Office
-                </Checkbox>
-              </Stack>
-            </Box>
-          </CheckboxGroup>
+
+          <RadioBallGroup
+            options={options}
+            name="series"
+            value={value}
+            onChange={(value) => setValue(value)}
+          />
+
           <Flex flexDir={"column"} align={"center"} gap={6}>
             <Link href={"/resultado"}>
               <Button
@@ -76,6 +90,7 @@ const MyInterestsSeries: NextPage = () => {
               </Button>
             </Link>
           </Flex>
+
           <Icon
             position={"absolute"}
             bottom={"10"}
