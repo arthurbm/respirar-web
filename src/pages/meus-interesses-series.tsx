@@ -2,18 +2,18 @@ import { Box, Button, Flex, Icon, Text, useToast } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import { AbsoluteImages, CustomHeading, RadioBallGroup } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
-import Link from "next/link";
 import modernFamily from "../assets/images/modern-family.png";
 import friends from "../assets/images/friends.png";
 import howIMetYourMother from "../assets/images/himym.png";
 import theOffice from "../assets/images/the-office.png";
-import { useForm } from "react-hook-form";
+import { type SubmitHandler, useForm } from "react-hook-form";
 import {
   InterestsSeriesSchema,
   type InterestsSeriesValues,
 } from "~/validators/interests-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormStore } from "~/store/useFormStore";
+import { useRouter } from "next/router";
 
 const MyInterestsSeries: NextPage = () => {
   const options = [
@@ -49,16 +49,17 @@ const MyInterestsSeries: NextPage = () => {
   });
 
   const { setInterestsSeries } = useFormStore();
+  const router = useRouter();
 
-  const onSubmit = (data: InterestsSeriesValues) => {
+  const onSubmit: SubmitHandler<InterestsSeriesValues> = async (data) => {
     console.log(data);
     setInterestsSeries(data);
-
     toast({
       title: "Formulário respondido com sucesso!",
       status: "success",
       duration: 3000,
     });
+    await router.push("/resultado");
   };
 
   const serie = watch("serie");
@@ -106,19 +107,17 @@ const MyInterestsSeries: NextPage = () => {
           />
 
           <Flex flexDir={"column"} align={"center"} gap={6}>
-            <Link href={"/resultado"}>
-              <Button
-                color={"darkBlue.500"}
-                w={"28"}
-                size={"lg"}
-                colorScheme={"orange"}
-                boxShadow={"0px 0px 40px 0px #CF6E3366"}
-                type={"submit"}
-                isDisabled={!isValid}
-              >
-                Enviar
-              </Button>
-            </Link>
+            <Button
+              color={"darkBlue.500"}
+              w={"28"}
+              size={"lg"}
+              colorScheme={"orange"}
+              boxShadow={"0px 0px 40px 0px #CF6E3366"}
+              type={"submit"}
+              isDisabled={!isValid}
+            >
+              Enviar
+            </Button>
           </Flex>
 
           <Icon

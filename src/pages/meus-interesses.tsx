@@ -14,7 +14,6 @@ import {
   CustomHeading,
 } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
-import Link from "next/link";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import {
   InterestsGeneralSchema,
@@ -22,6 +21,7 @@ import {
 } from "~/validators/interests-validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormStore } from "~/store/useFormStore";
+import { useRouter } from "next/router";
 
 const MyInterests: NextPage = () => {
   const {
@@ -35,9 +35,12 @@ const MyInterests: NextPage = () => {
 
   const { setInterestsGeneral } = useFormStore();
 
-  const onSubmit: SubmitHandler<InterestsGeneralValues> = (data) => {
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<InterestsGeneralValues> = async (data) => {
     console.log(data);
     setInterestsGeneral(data);
+    await router.push("/meus-interesses-series");
   };
 
   return (
@@ -137,19 +140,17 @@ const MyInterests: NextPage = () => {
           </CustomCheckboxGroup>
 
           <Flex flexDir={"column"} align={"center"} gap={6}>
-            <Link href={"meus-interesses-series"}>
-              <Button
-                color={"darkBlue.500"}
-                w={"28"}
-                size={"lg"}
-                colorScheme={"orange"}
-                boxShadow={"0px 0px 40px 0px #CF6E3366"}
-                isDisabled={!isValid}
-                type="submit"
-              >
-                Continuar
-              </Button>
-            </Link>
+            <Button
+              color={"darkBlue.500"}
+              w={"28"}
+              size={"lg"}
+              colorScheme={"orange"}
+              boxShadow={"0px 0px 40px 0px #CF6E3366"}
+              isDisabled={!isValid}
+              type="submit"
+            >
+              Continuar
+            </Button>
           </Flex>
 
           <Icon
