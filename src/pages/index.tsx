@@ -2,9 +2,9 @@ import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { AbsoluteImages, CustomHeading } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
 import useUserStore from "~/stores/useUserStore";
+import { AbsoluteImages, CustomHeading } from "~/components";
 
 const Home: NextPage = () => {
   const router = useRouter();
