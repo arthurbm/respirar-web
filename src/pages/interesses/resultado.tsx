@@ -1,5 +1,6 @@
 import { Box, Button, Flex } from "@chakra-ui/react";
 import { type NextPage } from "next";
+import Link from "next/link";
 import { AbsoluteImages, CustomHeading } from "~/components";
 import { IconCheck } from "~/components/icons/icon-check";
 import { IconLogo } from "~/components/icons/icon-logo";
@@ -31,25 +32,18 @@ const Result: NextPage = () => {
               tudo certo
             </CustomHeading>
 
-            <Button
-              color={"darkBlue.500"}
-              w={"28"}
-              size={"lg"}
-              colorScheme={"orange"}
-              boxShadow={"0px 0px 40px 0px #CF6E3366"}
-            >
-              Início
-            </Button>
+            <Link href={"/dashboard"}>
+              <Button
+                color={"darkBlue.500"}
+                w={"28"}
+                size={"lg"}
+                colorScheme={"orange"}
+                boxShadow={"0px 0px 40px 0px #CF6E3366"}
+              >
+                Início
+              </Button>
+            </Link>
           </Flex>
-
-          {/* <Text
-            color={"#FFF4EA"}
-            fontSize={"20px"}
-            fontWeight={"bold"}
-            textAlign={"center"}
-          >
-            assista o episodio 5 da temporada 2 de friends
-          </Text> */}
 
           <IconLogo
             position={"absolute"}

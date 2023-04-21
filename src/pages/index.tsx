@@ -6,7 +6,7 @@ import { IconLogo } from "~/components/icons/icon-logo";
 import useUserStore from "~/stores/useUserStore";
 import { AbsoluteImages, CustomHeading } from "~/components";
 
-const Home: NextPage = () => {
+const Onboarding: NextPage = () => {
   const router = useRouter();
   const { protectPage } = useUserStore();
 
@@ -77,4 +77,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Onboarding;
