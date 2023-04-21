@@ -54,7 +54,7 @@ export async function googleLogin(token: string, router: NextRouter) {
       maxAge: 60 * 60 * 12,
     });
 
-    await router.push('/meus-interesses')
+    await router.push('/interesses/meus-interesses')
   } catch (error) {
     await router.push('/login')
   }

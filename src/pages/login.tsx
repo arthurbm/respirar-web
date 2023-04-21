@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Flex,
-  Icon,
   Text,
   FormControl,
   FormLabel,
@@ -19,7 +18,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import useUserStore from "~/stores/useUserStore";
 import { useRouter } from "next/router";
-import { FcGoogle } from 'react-icons/fc';
+import { FcGoogle } from "react-icons/fc";
 import httpClient from "~/services/http";
 
 const Login: NextPage = () => {
@@ -150,7 +149,10 @@ const Login: NextPage = () => {
                       variant={"outline"}
                       textColor={"white.500"}
                       leftIcon={<FcGoogle />}
-                      _hover={{ textColor: "darkBlue.500", bgColor: "white.500" }}
+                      _hover={{
+                        textColor: "darkBlue.500",
+                        bgColor: "white.500",
+                      }}
                     >
                       <Center>
                         <Text>Entrar com o Google</Text>
@@ -184,13 +186,7 @@ const Login: NextPage = () => {
             </Link>
           </Flex>
 
-          <Icon
-            position={"absolute"}
-            bottom={"10"}
-            as={IconLogo}
-            w={29}
-            h={37}
-          />
+          <IconLogo position={"absolute"} bottom={"10"} w={29} h={37} />
         </Flex>
       </Box>
       <AbsoluteImages />

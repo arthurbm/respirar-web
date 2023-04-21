@@ -1,6 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-import { Box, Button, Flex, Icon, Text, FormControl, FormLabel, Input, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Text,
+  FormControl,
+  FormLabel,
+  Input,
+  useToast,
+} from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Head from "next/head";
 import { AbsoluteImages, CustomHeading } from "~/components";
@@ -20,7 +27,7 @@ const Register: NextPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const toast = useToast();
 
-  const { login, protectPage } = useUserStore()
+  const { login, protectPage } = useUserStore();
 
   void protectPage(false, router);
 
@@ -30,17 +37,17 @@ const Register: NextPage = () => {
       status,
       duration: 3000,
       isClosable: true,
-      position: 'top'
+      position: "top",
     });
-  }
+  };
 
   const checkPasswords = () => {
     if (password !== confirmPassword) {
-      showToast("As senhas devem ser iguais", "error")
+      showToast("As senhas devem ser iguais", "error");
       return false;
     }
     return true;
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -51,17 +58,16 @@ const Register: NextPage = () => {
         const user = await createUser({ name, email, password });
 
         if (user) {
-          showToast("Conta criada com sucesso!", "success")
+          showToast("Conta criada com sucesso!", "success");
           await login({ email, password }, router);
         }
       } catch (error) {
-        if (error instanceof Error){
-          showToast(error?.message, "error")
+        if (error instanceof Error) {
+          showToast(error?.message, "error");
         }
       }
     }
   };
-
 
   return (
     <>
@@ -93,9 +99,7 @@ const Register: NextPage = () => {
             <form onSubmit={handleSubmit}>
               <Flex gap={5} flexDir={"column"} align={"center"}>
                 <FormControl id="name">
-                  <FormLabel color="#FFF4EA">
-                    nome
-                  </FormLabel>
+                  <FormLabel color="#FFF4EA">nome</FormLabel>
 
                   <Input
                     type="name"
@@ -109,14 +113,11 @@ const Register: NextPage = () => {
                     border="1px solid #CF6E33"
                     borderRadius="8px"
                     px="11px"
-
                   />
                 </FormControl>
 
                 <FormControl id="email">
-                  <FormLabel color="#FFF4EA">
-                    email
-                  </FormLabel>
+                  <FormLabel color="#FFF4EA">email</FormLabel>
 
                   <Input
                     type="email"
@@ -130,14 +131,11 @@ const Register: NextPage = () => {
                     border="1px solid #CF6E33"
                     borderRadius="8px"
                     px="11px"
-
                   />
                 </FormControl>
 
                 <FormControl id="password">
-                  <FormLabel color="#FFF4EA">
-                    senha
-                  </FormLabel>
+                  <FormLabel color="#FFF4EA">senha</FormLabel>
 
                   <Input
                     type="password"
@@ -155,9 +153,7 @@ const Register: NextPage = () => {
                 </FormControl>
 
                 <FormControl id="confirm_password">
-                  <FormLabel color="#FFF4EA">
-                    confirmação de senha
-                  </FormLabel>
+                  <FormLabel color="#FFF4EA">confirmação de senha</FormLabel>
 
                   <Input
                     type="password"
@@ -191,13 +187,19 @@ const Register: NextPage = () => {
           </Box>
 
           <Flex flexDir={"column"} alignItems={"center"}>
-            <Text color="#CF6E33" fontSize="20px" fontWeight="bold" textAlign="center">
+            <Text
+              color="#CF6E33"
+              fontSize="20px"
+              fontWeight="bold"
+              textAlign="center"
+            >
               já tem uma conta?{" "}
-            </Text>;
-
+            </Text>
+            ;
             <Link href="/login">
               <Text
-                color="#CF6E33" fontSize="20px"
+                color="#CF6E33"
+                fontSize="20px"
                 fontWeight="bold"
                 textDecoration="underline"
               >
@@ -206,16 +208,9 @@ const Register: NextPage = () => {
             </Link>
           </Flex>
 
-
-          <Icon
-            position={"absolute"}
-            bottom={"10"}
-            as={IconLogo}
-            w={29}
-            h={37}
-          />
+          <IconLogo position={"absolute"} bottom={"10"} w={29} h={37} />
         </Flex>
-      </Box >
+      </Box>
       <AbsoluteImages />
     </>
   );

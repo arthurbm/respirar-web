@@ -3,10 +3,10 @@ import { Box, Button, Flex, Icon, Text, useToast } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import { AbsoluteImages, CustomHeading, RadioBallGroup } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
-import modernFamily from "../assets/images/modern-family.png";
-import friends from "../assets/images/friends.png";
-import howIMetYourMother from "../assets/images/himym.png";
-import theOffice from "../assets/images/the-office.png";
+import modernFamily from "~/assets/images/modern-family.png";
+import friends from "~/assets/images/friends.png";
+import howIMetYourMother from "~/assets/images/himym.png";
+import theOffice from "~/assets/images/the-office.png";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import {
   InterestsSeriesSchema,
@@ -61,7 +61,7 @@ const MyInterestsSeries: NextPage = () => {
       status: "success",
       duration: 3000,
     });
-    await router.push("/resultado");
+    await router.push("/interesses/resultado");
   };
 
   const serie = watch("serie");
@@ -122,13 +122,7 @@ const MyInterestsSeries: NextPage = () => {
             </Button>
           </Flex>
 
-          <Icon
-            position={"absolute"}
-            bottom={"10"}
-            as={IconLogo}
-            w={29}
-            h={37}
-          />
+          <IconLogo position={"absolute"} bottom={"10"} w={29} h={37} />
         </Flex>
       </Box>
       <AbsoluteImages />

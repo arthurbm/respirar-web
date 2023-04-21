@@ -6,7 +6,6 @@ import {
   Button,
   Checkbox,
   Flex,
-  Icon,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -48,7 +47,7 @@ const MyInterests: NextPage = () => {
   const onSubmit: SubmitHandler<InterestsGeneralValues> = async (data) => {
     console.log(data);
     setInterestsGeneral(data);
-    await router.push("/meus-interesses-series");
+    await router.push("/interesses/meus-interesses-series");
   };
 
   return (
@@ -174,10 +173,9 @@ const MyInterests: NextPage = () => {
             </Button>
           </Flex>
 
-          <Icon
+          <IconLogo
             position={"absolute"}
             bottom={"10"}
-            as={IconLogo}
             w={29}
             h={37}
           />
