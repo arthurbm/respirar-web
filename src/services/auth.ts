@@ -11,6 +11,7 @@ export type ResponseData = {
   access_token: string;
   user: User;
   statusCode: number;
+  hasInterest: boolean;
 }
 
 export type Response = {

@@ -18,3 +18,13 @@ export async function createUser(body: User) {
     }
   }
 }
+
+export async function getUserDashboard() {
+  try {
+    const { data }: Response = await httpClient.get(`/dashboard`);
+
+    return data;
+  } catch (error) {
+      throw new Error();
+  }
+}

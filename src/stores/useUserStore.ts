@@ -48,7 +48,7 @@ const useUserStore = create<userState>((set) => ({
     if (!access_token && needsAuth) {
       await router.push("/login");
     } else if (access_token && !needsAuth) {
-      await router.push("/interesses/meus-interesses");
+      await router.push("/dashboard");
     }
   },
 }));
