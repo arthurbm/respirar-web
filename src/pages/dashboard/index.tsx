@@ -1,11 +1,11 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { type NextPage } from "next";
-import { FeelingsBox } from "~/components";
+import { DashboardLayout, FeelingsBox } from "~/components";
 
 const Dashboard: NextPage = () => {
   return (
-    <>
-      <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
+    <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
+      <DashboardLayout>
         <Flex
           flexDir={"column"}
           align={"center"}
@@ -21,8 +21,8 @@ const Dashboard: NextPage = () => {
           alt={"Line top"}
           style={{ position: "absolute", top: 0, right: 0 }}
         /> */}
-      </Box>
-    </>
+      </DashboardLayout>
+    </Box>
   );
 };
 

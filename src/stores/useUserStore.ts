@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { parseCookies } from "nookies";
-import create from "zustand";
+import { create } from "zustand";
 
 import { login, logout } from "../services/auth";
 import { type User, type UserLogin } from "~/types/user";
