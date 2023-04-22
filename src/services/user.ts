@@ -22,13 +22,15 @@ export async function createUser(body: User) {
 
 export async function getUserDashboard() {
   try {
-    const { g_token } = parseCookies();
+    // const { g_token } = parseCookies();
 
-    const { data }: Response = await httpClient.get(`/dashboard`, g_token ? {
-      headers: {
-        Authorization: `Bearer ${g_token}`,
-      }
-    } : undefined);
+    // const { data }: Response = await httpClient.get(`/dashboard`, g_token ? {
+    //   headers: {
+    //     Authorization: `Bearer ${g_token}`,
+    //   }
+    // } : undefined);
+
+    const { data }: Response = await httpClient.get(`/dashboard`);
 
     return data;
   } catch (error) {
