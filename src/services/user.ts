@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+import { parseCookies } from "nookies";
 import { type Response } from "./auth";
 import httpClient from "./http";
 import { type User } from "~/types/user";
@@ -21,10 +22,16 @@ export async function createUser(body: User) {
 
 export async function getUserDashboard() {
   try {
-    const { data }: Response = await httpClient.get(`/dashboard`);
+    const { g_token } = parseCookies();
+
+    const { data }: Response = await httpClient.get(`/dashboard`, g_token ? {
+      headers: {
+        Authorization: `Bearer ${g_token}`,
+      }
+    } : undefined);
 
     return data;
   } catch (error) {
-      throw new Error();
+    throw new Error();
   }
 }

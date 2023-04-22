@@ -7,13 +7,17 @@ import { AbsoluteImages } from "~/components";
 
 const Callback: NextPage = () => {
   const router = useRouter();
-  const { token } = router.query;
+  const { token, g_token } = router.query;
 
   useEffect(() => {
     if (token && typeof token === 'string') {
-      void googleLogin(token, router);
+      if (g_token && typeof g_token === 'string') {
+        void googleLogin(router, token, g_token);
+      }else {
+        void googleLogin(router, token);
+      }
     }
-  }, [token, router])
+  }, [token, g_token, router])
 
 
   return (

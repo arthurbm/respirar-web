@@ -43,17 +43,25 @@ export async function login({ email, password }: UserLogin) {
 export function logout() {
   try {
     destroyCookie(undefined, "access_token");
+    destroyCookie(undefined, "g_token");
   } catch (error) {
     console.log(error);
   }
 }
 
-export async function googleLogin(token: string, router: NextRouter) {
+export async function googleLogin(router: NextRouter, token: string, g_token?: string) {
   try {
     setCookie(undefined, "access_token", token, {
       secure: false,
       maxAge: 60 * 60 * 12,
     });
+
+    if (g_token){
+      setCookie(undefined, "g_token", g_token, {
+        secure: false,
+        maxAge: 60 * 60 * 12,
+      });
+    }
 
     await router.push('/dashboard')
   } catch (error) {
