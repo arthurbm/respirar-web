@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { AbsoluteImages } from "~/components";
 
-const Home: NextPage = () => {
+const Callback: NextPage = () => {
   const router = useRouter();
   const { token } = router.query;
 
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
     if (token && typeof token === 'string') {
       void googleLogin(token, router);
     }
-  }, [token])
+  }, [token, router])
 
 
   return (
@@ -29,4 +29,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Callback;

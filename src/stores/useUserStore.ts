@@ -21,7 +21,7 @@ const useUserStore = create<userState>((set) => ({
   login: async ({ email, password }: UserLogin, router) => {
     try {
       const userData: User = await login({ email, password });
-      await router.push("/meus-interesses");
+      await router.push("/interesses/meus-interesses");
 
       set({ user: userData, isLogged: true });
     } catch (error) {
@@ -48,7 +48,7 @@ const useUserStore = create<userState>((set) => ({
     if (!access_token && needsAuth) {
       await router.push("/login");
     } else if (access_token && !needsAuth) {
-      await router.push("/meus-interesses");
+      await router.push("/interesses/meus-interesses");
     }
   },
 }));

@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,7 +6,7 @@ import { IconLogo } from "~/components/icons/icon-logo";
 import useUserStore from "~/stores/useUserStore";
 import { AbsoluteImages, CustomHeading } from "~/components";
 
-const Home: NextPage = () => {
+const Onboarding: NextPage = () => {
   const router = useRouter();
   const { protectPage } = useUserStore();
 
@@ -62,20 +62,14 @@ const Home: NextPage = () => {
                 borderWidth={2}
                 colorScheme={"orange"}
                 variant={"outline"}
-              // boxShadow={"0px 0px 40px 0px #CF6E3399"}
+                // boxShadow={"0px 0px 40px 0px #CF6E3399"}
               >
                 Cadastro
               </Button>
             </Link>
           </Flex>
 
-          <Icon
-            position={"absolute"}
-            bottom={"10"}
-            as={IconLogo}
-            w={29}
-            h={37}
-          />
+          <IconLogo position={"absolute"} bottom={"10"} w={29} h={37} />
         </Flex>
       </Box>
       <AbsoluteImages />
@@ -83,4 +77,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default Onboarding;

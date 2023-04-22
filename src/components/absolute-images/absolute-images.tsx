@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import ellipseBottomBright from "../../assets/images/ellipse-bottom-bright.png";
-import ellipseBottomDark from "../../assets/images/ellipse-bottom-dark.png";
-import ellipseTopBright from "../../assets/images/ellipse-top-bright.png";
-import ellipseTopDark from "../../assets/images/ellipse-top-dark.png";
-import lineBottom from "../../assets/images/line-bottom.png";
-import lineTop from "../../assets/images/line-top.png";
+import ellipseBottomBright from "~/assets/images/ellipse-bottom-bright.png";
+import ellipseBottomDark from "~/assets/images/ellipse-bottom-dark.png";
+import ellipseTopBright from "~/assets/images/ellipse-top-bright.png";
+import ellipseTopDark from "~/assets/images/ellipse-top-dark.png";
+import lineBottom from "~/assets/images/line-bottom.png";
+import lineTop from "~/assets/images/line-top.png";
 
 export function AbsoluteImages() {
   return (
