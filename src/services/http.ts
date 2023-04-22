@@ -4,14 +4,14 @@ import axios from "axios";
 import { destroyCookie, parseCookies } from "nookies";
 
 const httpClient = axios.create({
-  // baseURL: "http://localhost:3001/",
-  baseURL: "https://respirar-server-node.onrender.com/"
+  baseURL: "http://localhost:3001/",
+  // baseURL: "https://respirar-server-node.onrender.com/"
 });
 
 httpClient.interceptors.request.use((config) => {
-  const { accessToken } = parseCookies();
-  if (config.headers && accessToken) {
-    config.headers.Authorization = `Token ${accessToken}`;
+  const { access_token } = parseCookies();
+  if (config.headers && access_token) {
+    config.headers.Authorization = `Bearer ${access_token}`;
   }
   return config;
 });

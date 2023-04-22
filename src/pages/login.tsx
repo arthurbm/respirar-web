@@ -15,7 +15,7 @@ import Head from "next/head";
 import { AbsoluteImages, CustomHeading } from "~/components";
 import { IconLogo } from "~/components/icons/icon-logo";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useUserStore from "~/stores/useUserStore";
 import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
@@ -25,22 +25,15 @@ const Login: NextPage = () => {
   const router = useRouter();
   const toast = useToast();
 
+  const googleUrl = (httpClient.defaults.baseURL || "https://respirar-server-node.onrender.com/") + "auth/google";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { login, protectPage } = useUserStore();
 
   void protectPage(false, router);
-
-  const [googleUrl, setGoogleUrl] = useState("");
-
-  useEffect(() => {
-    const apiUrl = httpClient.defaults.baseURL || "http://localhost:3001/";
-    const googleUrl =
-      apiUrl + "auth/google?redirectUrl=" + window.location.origin;
-    setGoogleUrl(googleUrl);
-  }, []);
-
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {

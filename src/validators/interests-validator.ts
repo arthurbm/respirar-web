@@ -2,14 +2,14 @@ import { z } from 'zod';
 
 export const InterestsGeneralSchema = z.object({
   activities: z.array(z.string()).nonempty('Selecione ao menos uma atividade'),
-  genders: z.array(z.string()).nonempty('Selecione ao menos um gênero'),
+  genres: z.array(z.string()).nonempty('Selecione ao menos um gênero'),
 });
 
 // infer the type from the schema
 export type InterestsGeneralValues = z.infer<typeof InterestsGeneralSchema>;
 
 export const InterestsSeriesSchema = z.object({
-  serie: z.string().nonempty('Selecione uma série'),
+  confort_shows: z.string().nonempty('Selecione uma série'),
 })
 
 // infer the type from the schema

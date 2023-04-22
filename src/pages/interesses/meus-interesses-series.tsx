@@ -15,6 +15,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormStore } from "~/stores/useFormStore";
 import { useRouter } from "next/router";
+import { createInterest } from "~/services/interest";
 
 const MyInterestsSeries: NextPage = () => {
   const options = [
@@ -37,7 +38,7 @@ const MyInterestsSeries: NextPage = () => {
   ];
 
   const toast = useToast();
-  const { setInterestsSeries, interestsSeries } = useFormStore();
+  const { setInterestsSeries, interestsSeries, interestsGeneral } = useFormStore();
 
   const {
     handleSubmit,
@@ -54,17 +55,21 @@ const MyInterestsSeries: NextPage = () => {
   const router = useRouter();
 
   const onSubmit: SubmitHandler<InterestsSeriesValues> = async (data) => {
-    console.log(data);
     setInterestsSeries(data);
-    toast({
-      title: "Formulário respondido com sucesso!",
-      status: "success",
-      duration: 3000,
-    });
-    await router.push("/interesses/resultado");
+
+    try {
+      await createInterest({...data, ...interestsGeneral});
+      await router.push("/interesses/resultado");
+    } catch (error) {
+      toast({
+        title: "Ocorreu um erro ao cadastrar seus interesses",
+        status: "error",
+        duration: 3000,
+      });
+    }
   };
 
-  const serie = watch("serie");
+  const serie = watch("confort_shows");
 
   return (
     <>
@@ -103,8 +108,8 @@ const MyInterestsSeries: NextPage = () => {
             name="series"
             value={serie}
             onChange={async (value) => {
-              setValue("serie", value);
-              await trigger("serie");
+              setValue("confort_shows", value);
+              await trigger("confort_shows");
             }}
           />
 
