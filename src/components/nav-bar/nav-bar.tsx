@@ -28,34 +28,35 @@ type NavBarProps = {
 
 type NavBarLinkProps = ButtonProps & {
   isActive?: boolean;
-  href: string;
 };
 
-function NavBarLink({ children, isActive, href, ...props }: NavBarLinkProps) {
+function NavBarButton({ children, ...props }: NavBarLinkProps) {
   // const styleButton = useMultiStyleConfig('NavLink', { variant: 'nav' }) as any
   // const match = useMatch(`${props.to}`)
 
   // const activeStyle = match || isActive ? styleButton._active : {}
-
   return (
-    <Link href={href} passHref>
-      <Button
-        // variant='nav'
-        // sx={{ ...activeStyle }}
-        {...props}
-      >
-        {children}
-      </Button>
-    </Link>
+    <Button
+      bgColor={"orange.500"}
+      fontWeight="semibold"
+      _hover={{ bgColor: "orange.700" }}
+      _active={{ bgColor: "orange.700" }}
+      {...props}
+    >
+      {children}
+    </Button>
   );
 }
 
 export const NavBar: React.FC<NavBarProps> = ({ handleClick }) => {
-  const { sidebar, shrink } = useDashboardStore();
+  const { sidebar } = useDashboardStore();
   const { logout } = useUserStore();
   const router = useRouter();
 
   const logOut = async () => {
+    if (handleClick) {
+      handleClick();
+    }
     await logout(router);
   };
 
@@ -74,12 +75,6 @@ export const NavBar: React.FC<NavBarProps> = ({ handleClick }) => {
       path: "/dashboard/history",
       icon: AiOutlineHistory,
       text: "Histórico",
-    },
-
-    {
-      path: "/dashboard/logout",
-      icon: AiOutlineLogout,
-      text: "Logout",
     },
   ];
 
@@ -113,70 +108,28 @@ export const NavBar: React.FC<NavBarProps> = ({ handleClick }) => {
         <Flex flexDir={"column"} align={"start"} flex={1} pt={8}>
           {items.map((item, index) => (
             <Center key={index} p={2} flexDirection="column" pl={8} pr={10}>
-              <NavBarLink
-                leftIcon={
-                  <Icon
-                    as={item.icon}
-                    fontSize="large"
-                    // mr={2}
-                  />
-                }
-                // colorScheme={"orange"}
-                bgColor={"orange.300"}
-                // color={"darkBlue.500"}
-                href={item.path}
-                onClick={handleClick}
-              >
-                {item.text}
-              </NavBarLink>
+              <Link href={item.path} passHref>
+                <NavBarButton
+                  leftIcon={<Icon as={item.icon} fontSize="large" />}
+                  onClick={handleClick}
+                >
+                  {item.text}
+                </NavBarButton>
+              </Link>
             </Center>
           ))}
+
+          <Center p={2} flexDirection="column" pl={8} pr={10}>
+            <NavBarButton
+              leftIcon={<Icon as={AiOutlineLogout} fontSize="large" />}
+              onClick={logOut}
+            >
+              Logout
+            </NavBarButton>
+          </Center>
         </Flex>
       </Box>
       {/* <ToggleButton /> */}
     </Box>
   );
 };
-
-// const ToggleButton = () => {
-//   const { shrink, setShrink, collapsible } = useContext(DashboardContext);
-
-//   if (!collapsible) return null;
-
-//   const rotation = shrink ? "rotate(180deg)" : "";
-//   const position = !shrink ? "-50%" : "50%";
-//   const right = shrink ? "50%" : "1";
-//   const opacity = shrink ? 1 : 0;
-
-//   const handleExpandMenu = () => {
-//     setShrink.toggle();
-//     sendGAEvent("expand_menu");
-//   };
-
-//   return (
-//     <IconButton
-//       onClick={handleExpandMenu}
-//       icon={
-//         <Icon
-//           as={BiChevronLeft}
-//           color="white"
-//           fontWeight="black"
-//           fontSize="2xl"
-//         />
-//       }
-//       aria-label="menu"
-//       position="absolute"
-//       top="50%"
-//       right={right}
-//       transform={`translate(${position}) ${rotation}`}
-//       bg="blue.600"
-//       rounded="full"
-//       colorScheme="blue"
-//       transitionProperty="all"
-//       transitionDuration="normal"
-//       opacity={opacity}
-//       _focus={{ boxShadow: "none" }}
-//       _groupHover={{ opacity: 1 }}
-//     />
-//   );
-// };

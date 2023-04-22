@@ -36,7 +36,7 @@ const useDashboardStore = create<DashState>((set) => {
 
   const sidebar = {
     width: shrink ? '18rem' : 20,
-    logoMargin: shrink ? 3.5 : 8,
+    logoMargin: shrink ? 10 : 8,
   };
 
   return {

@@ -90,6 +90,8 @@ const Header = () => {
         icon={<Icon as={HamburgerIcon} />}
         aria-label="Abrir Menu"
         onClick={setShowNav.on}
+        bgColor="transparent"
+        color="white.500"
       />
     </HStack>
   );

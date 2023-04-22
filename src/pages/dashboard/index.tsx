@@ -10,7 +10,6 @@ const Dashboard: NextPage = () => {
           flexDir={"column"}
           align={"center"}
           mx={"8"}
-          pt={"12"}
           h={"full"}
           gap={6}
         >
