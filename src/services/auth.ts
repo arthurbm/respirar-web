@@ -11,6 +11,7 @@ export type ResponseData = {
   access_token: string;
   user: User;
   statusCode: number;
+  hasInterest: boolean;
 }
 
 export type Response = {
@@ -54,7 +55,7 @@ export async function googleLogin(token: string, router: NextRouter) {
       maxAge: 60 * 60 * 12,
     });
 
-    await router.push('/interesses/meus-interesses')
+    await router.push('/dashboard')
   } catch (error) {
     await router.push('/login')
   }

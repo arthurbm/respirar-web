@@ -45,7 +45,6 @@ const MyInterests: NextPage = () => {
   });
 
   const onSubmit: SubmitHandler<InterestsGeneralValues> = async (data) => {
-    console.log(data);
     setInterestsGeneral(data);
     await router.push("/interesses/meus-interesses-series");
   };
@@ -121,7 +120,7 @@ const MyInterests: NextPage = () => {
           </Text>
 
           <CustomCheckboxGroup
-            name="genders"
+            name="genres"
             control={control}
             defaultValue={[]}
             colorScheme="#CF6E33"
