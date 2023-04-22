@@ -1,8 +1,8 @@
 import { Box, Flex, useToast, Spinner } from "@chakra-ui/react";
 import { type NextPage } from "next";
+import { DashboardLayout, FeelingsBox } from "~/components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { FeelingsBox } from "~/components";
 import { getUserDashboard } from "~/services/user";
 import useUserStore from "~/stores/useUserStore";
 
@@ -37,13 +37,12 @@ const Dashboard: NextPage = () => {
     void fetchDashboard();
   }, []);
   return (
-    <>
-      <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
+    <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
+      <DashboardLayout>
         <Flex
           flexDir={"column"}
           align={"center"}
           mx={"8"}
-          pt={"12"}
           h={"full"}
           gap={6}
         >
@@ -59,8 +58,8 @@ const Dashboard: NextPage = () => {
           alt={"Line top"}
           style={{ position: "absolute", top: 0, right: 0 }}
         /> */}
-      </Box>
-    </>
+      </DashboardLayout>
+    </Box>
   );
 };
 
