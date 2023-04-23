@@ -3,13 +3,15 @@ import { type NextPage } from "next";
 import { DashboardLayout, FeelingsBox } from "~/components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getUserDashboard } from "~/services/user";
+import { getUserActivities, getUserDashboard } from "~/services/user";
 import useUserStore from "~/stores/useUserStore";
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
   const { protectPage } = useUserStore();
+
   const [loading, setLoading] = useState(true);
+  const [humour, setHumour] = useState(2);
 
   const toast = useToast();
 
@@ -19,6 +21,8 @@ const Dashboard: NextPage = () => {
     const fetchDashboard = async () => {
       try {
         const data = await getUserDashboard();
+        const activies = await getUserActivities({email: data.email, humour});
+        console.log(activies)
 
         if (!data.hasInterest) {
           await router.push("/interesses/meus-interesses")

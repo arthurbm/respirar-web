@@ -10,6 +10,7 @@ import { type AxiosError } from "axios";
 export type ResponseData = {
   access_token: string;
   user: User;
+  email: string;
   statusCode: number;
   hasInterest: boolean;
 }

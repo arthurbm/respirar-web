@@ -37,3 +37,19 @@ export async function getUserDashboard() {
     throw new Error();
   }
 }
+
+export async function getUserActivities(body: {email: string, humour: number}) {
+  try {
+    const { g_token } = parseCookies();
+
+    const { data }: Response = await httpClient.post(`/dashboard/activities`, body, g_token ? {
+      headers: {
+        Authorization: `Bearer ${g_token}`,
+      }
+    } : undefined);
+
+    return data;
+  } catch (error) {
+    throw new Error();
+  }
+}
