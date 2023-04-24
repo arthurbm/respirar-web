@@ -32,13 +32,24 @@ export async function getUserDashboard() {
 
     const { data }: Response = await httpClient.get(`/dashboard`);
 
-    return data;
+    return data
   } catch (error) {
     throw new Error();
   }
 }
 
-export async function getUserActivities(body: {email: string, humour: number}) {
+// export async function useUserDashboard() {
+//   // use react query
+//   const response = useQuery<ResponseData>({ queryKey: ["user-dashboard"], queryFn: getUserDashboard });
+//   return response;
+// }
+
+type UserActivities = {
+  email: string,
+  humour: number,
+}
+
+export async function getUserActivities(body: UserActivities) {
   try {
     const { g_token } = parseCookies();
 
@@ -50,6 +61,7 @@ export async function getUserActivities(body: {email: string, humour: number}) {
 
     return data;
   } catch (error) {
+    console.log('error', error)
     throw new Error();
   }
 }

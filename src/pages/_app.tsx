@@ -9,6 +9,7 @@ import { theme } from "~/styles/theme";
 import useUserStore from "~/stores/useUserStore";
 import { useEffect } from "react";
 import Head from "next/head";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -20,23 +21,26 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   const { isLoggedIn } = useUserStore();
- 
+  const queryClient = new QueryClient();
+
   useEffect(() => {
     isLoggedIn();
   }, [isLoggedIn]);
-  
+
   return (
     <ChakraProvider theme={theme}>
-      <SessionProvider session={session}>
-        <Head>
-          <title>Respirar</title>
-          <meta name="description" content="Programe atividades prazerosas" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <main className={roboto.className}>
-          <Component {...pageProps} />
-        </main>
-      </SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider session={session}>
+          <Head>
+            <title>Respirar</title>
+            <meta name="description" content="Programe atividades prazerosas" />
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
+          <main className={roboto.className}>
+            <Component {...pageProps} />
+          </main>
+        </SessionProvider>
+      </QueryClientProvider>
     </ChakraProvider>
   );
 };
