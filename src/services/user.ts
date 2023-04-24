@@ -42,11 +42,11 @@ export async function getUserActivities(body: {email: string, humour: number}) {
   try {
     const { g_token } = parseCookies();
 
-    const { data }: Response = await httpClient.post(`/dashboard/activities`, body, g_token ? {
+    const { data }: Response = await httpClient.post(`/dashboard/activities`, body, {
       headers: {
-        Authorization: `Bearer ${g_token}`,
+        Authorization: `Bearer ${g_token || ''}`,
       }
-    } : undefined);
+    });
 
     return data;
   } catch (error) {

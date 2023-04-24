@@ -21,11 +21,12 @@ const Dashboard: NextPage = () => {
     const fetchDashboard = async () => {
       try {
         const data = await getUserDashboard();
-        const activies = await getUserActivities({email: data.email, humour});
-        console.log(activies)
 
         if (!data.hasInterest) {
           await router.push("/interesses/meus-interesses")
+        } else {
+          const activies = await getUserActivities({email: data.email, humour});
+          console.log(activies)
         }
       } catch (error) {
         toast({
