@@ -12,7 +12,7 @@ export const useActivitiesData = (email: string, humour: number, enabled: boolea
     queryFn: async () => await getUserActivities({ email: email, humour }),
     enabled,
     // retryOnMount: false,
-    retry: false,
-    refetchOnMount: false,
+    // retry: false,
+    // refetchOnMount: false,
   });
 };

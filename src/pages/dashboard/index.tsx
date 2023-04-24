@@ -16,19 +16,16 @@ const Dashboard: NextPage = () => {
     data: dashboardData,
     isLoading: dashboardLoading,
     isError: dashboardError,
+    isSuccess: dashboardSuccess,
   } = useDashboardData();
 
-  // const isDashboardDataLoaded = true;
+  const isDashboardDataLoaded = dashboardSuccess;
 
-  // const {
-  //   data: activitiesData,
-  //   isLoading: activitiesLoading,
-  //   error: activitiesError,
-  // } = useActivitiesData(
-  //   'abm5@cin.ufpe.br',
-  //   2,
-  //   isDashboardDataLoaded || false
-  // );
+  const {
+    data: activitiesData,
+    isLoading: activitiesLoading,
+    error: activitiesError,
+  } = useActivitiesData(dashboardData?.email || '', 2, isDashboardDataLoaded);
 
   useEffect(() => {
     const redirectToInterests = async () => {
@@ -41,14 +38,14 @@ const Dashboard: NextPage = () => {
     void redirectToInterests();
   }, [dashboardData, router, protectPage]);
 
-  // if (activitiesError) {
-  //   toast({
-  //     title: "Erro ao carregar atividades",
-  //     status: "error",
-  //     duration: 3000,
-  //     isClosable: true,
-  //   });
-  // }
+  if (activitiesError) {
+    toast({
+      title: "Erro ao carregar atividades",
+      status: "error",
+      duration: 3000,
+      isClosable: true,
+    });
+  }
 
   if (dashboardError) {
     toast({
