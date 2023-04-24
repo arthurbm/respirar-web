@@ -9,6 +9,7 @@ import { theme } from "~/styles/theme";
 import useUserStore from "~/stores/useUserStore";
 import { useEffect } from "react";
 import Head from "next/head";
+import { Analytics } from "@vercel/analytics/react";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -20,11 +21,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   const { isLoggedIn } = useUserStore();
- 
+
   useEffect(() => {
     isLoggedIn();
   }, [isLoggedIn]);
-  
+
   return (
     <ChakraProvider theme={theme}>
       <SessionProvider session={session}>
@@ -35,6 +36,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
         </Head>
         <main className={roboto.className}>
           <Component {...pageProps} />
+          <Analytics />
         </main>
       </SessionProvider>
     </ChakraProvider>
