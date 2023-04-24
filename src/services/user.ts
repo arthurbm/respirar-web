@@ -38,12 +38,6 @@ export async function getUserDashboard() {
   }
 }
 
-// export async function useUserDashboard() {
-//   // use react query
-//   const response = useQuery<ResponseData>({ queryKey: ["user-dashboard"], queryFn: getUserDashboard });
-//   return response;
-// }
-
 type UserActivities = {
   email: string,
   humour: number,

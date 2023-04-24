@@ -25,7 +25,7 @@ const Login: NextPage = () => {
   const router = useRouter();
   const toast = useToast();
 
-  const googleUrl = (httpClient.defaults.baseURL || "https://respirar-server-node.onrender.com/") + "auth/google";
+  const googleUrl = (httpClient.defaults.baseURL || "http://localhost:3001/") + "auth/google";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

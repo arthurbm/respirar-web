@@ -2,26 +2,9 @@ import { Box, Flex, useToast, Spinner } from "@chakra-ui/react";
 import { type NextPage } from "next";
 import { DashboardLayout, FeelingsBox } from "~/components";
 import { useRouter } from "next/router";
-import { useQuery } from "@tanstack/react-query";
-import { getUserActivities, getUserDashboard } from "~/services/user";
 import useUserStore from "~/stores/useUserStore";
 import { useEffect } from "react";
-
-// Custom hooks to fetch data using React Query
-const useDashboardData = () => {
-  return useQuery(["dashboardData"], getUserDashboard);
-};
-
-const useActivitiesData = (email: string, humour: number, enabled: boolean) => {
-  return useQuery({
-    queryKey: ["activitiesData", email],
-    queryFn: () => getUserActivities({ email: email, humour }),
-    enabled,
-    // retryOnMount: false,
-    retry: false,
-    refetchOnMount: false,
-  });
-};
+import { useActivitiesData, useDashboardData } from "~/hooks/user";
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
@@ -29,23 +12,23 @@ const Dashboard: NextPage = () => {
 
   const toast = useToast();
 
-  void protectPage(true, router);
-
   const {
     data: dashboardData,
     isLoading: dashboardLoading,
     isError: dashboardError,
   } = useDashboardData();
 
-  const isDashboardDataLoaded = !!dashboardData;
+  // const isDashboardDataLoaded = true;
 
-  const {
-    data: activitiesData,
-    isLoading: activitiesLoading,
-    error: activitiesError,
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-  } = useActivitiesData(dashboardData?.email, 2, isDashboardDataLoaded || false);
+  // const {
+  //   data: activitiesData,
+  //   isLoading: activitiesLoading,
+  //   error: activitiesError,
+  // } = useActivitiesData(
+  //   'abm5@cin.ufpe.br',
+  //   2,
+  //   isDashboardDataLoaded || false
+  // );
 
   useEffect(() => {
     const redirectToInterests = async () => {
@@ -54,17 +37,18 @@ const Dashboard: NextPage = () => {
       }
     };
 
+    void protectPage(true, router);
     void redirectToInterests();
-  }, [dashboardData, router]);
+  }, [dashboardData, router, protectPage]);
 
-  if (activitiesError) {
-    toast({
-      title: "Erro ao carregar atividades",
-      status: "error",
-      duration: 3000,
-      isClosable: true,
-    });
-  }
+  // if (activitiesError) {
+  //   toast({
+  //     title: "Erro ao carregar atividades",
+  //     status: "error",
+  //     duration: 3000,
+  //     isClosable: true,
+  //   });
+  // }
 
   if (dashboardError) {
     toast({
@@ -75,7 +59,7 @@ const Dashboard: NextPage = () => {
     });
   }
 
-  if (dashboardLoading || activitiesLoading) {
+  if (dashboardLoading) {
     return (
       <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
         <DashboardLayout>
