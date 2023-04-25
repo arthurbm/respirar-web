@@ -83,7 +83,7 @@ const Dashboard: NextPage = () => {
           mx={"8"}
           h={"full"}
           gap={{ base: 6, md: 12 }}
-          ml={{ base: 0, md: '18rem' }}
+          ml={{ base: 0, lg: '18rem' }}
           maxW={{ base: "full", md: "container.md" }}
         >
           <FeelingsBox />
@@ -92,9 +92,9 @@ const Dashboard: NextPage = () => {
           
           <FavoritesGraph
             data={[
-              { label: "Task A", time: 30 },
-              { label: "Task B", time: 60 },
-              { label: "Task C", time: 45 },
+              { label: "filmes ou séries", time: 2, name: "movie" },
+              { label: "exercícios", time: 4, name: "exercise" },
+              { label: "meditação", time: 3, name: "meditation" },
             ]}
           />
         </Flex>

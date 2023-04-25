@@ -45,7 +45,7 @@ const DashboardContainer = ({ children }: Props) => {
       pt={{ base: 0, lg: 14 }}
       pl={{ base: 0, lg: sidebar.width }}
     >
-      <Container w="container.xl" maxWidth="90%" pb={14}>
+      <Container w="container.xl" maxWidth="90%">
         {isMobile && <Header />}
         {children}
       </Container>
