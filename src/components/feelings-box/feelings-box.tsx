@@ -24,17 +24,17 @@ export function FeelingsBox() {
   ];
 
   return (
-    <Flex flexDir={"column"} gap={4}>
-      <CustomHeading color={"white.500"} fontSize={"4xl"} fontWeight={"bold"}>
+    <Flex flexDir={"column"} gap={4} w={"full"}>
+      <CustomHeading color={"white.500"} fontSize={{ base: "2xl", md: "4xl" }} fontWeight={"bold"}>
         como você está se sentindo?
       </CustomHeading>
       <HStack justify={"space-between"} align={"center"} w={"full"}>
         {feelingsOptions.map((option) => (
-          <Flex flexDir={"column"} gap={"1"} key={option.id}>
+          <Flex align={"center"} flexDir={"column"} gap={"1"} key={option.id}>
             <Icon
               as={option.icon}
-              w={10}
-              h={10}
+              w={{ base: "8", md: "10" }}
+              h={{ base: "8", md: "10" }}
               color={"white.500"}
               transition={"color 0.2s ease-in-out"}
               _hover={{ color: "orange.500" }}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { parseCookies } from "nookies";
@@ -32,13 +33,18 @@ export async function getUserDashboard() {
 
     const { data }: Response = await httpClient.get(`/dashboard`);
 
-    return data;
+    return data
   } catch (error) {
     throw new Error();
   }
 }
 
-export async function getUserActivities(body: {email: string, humour: number}) {
+type UserActivities = {
+  email: string,
+  humour: number,
+}
+
+export async function getRecommendedActivities(body: UserActivities) {
   try {
     const { g_token } = parseCookies();
 

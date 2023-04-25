@@ -4,8 +4,8 @@ import axios from "axios";
 import { destroyCookie, parseCookies } from "nookies";
 
 const isProd = process.env.NODE_ENV === "production";
-
 const baseURL = isProd ? "https://respirar-server-node.onrender.com/" : "http://localhost:3001/";
+
 const httpClient = axios.create({
   baseURL,
 });
