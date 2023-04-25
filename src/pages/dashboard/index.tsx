@@ -1,6 +1,6 @@
 import { Box, Flex, useToast, Spinner } from "@chakra-ui/react";
 import { type NextPage } from "next";
-import { DashboardLayout, FeelingsBox } from "~/components";
+import { DashboardLayout, FeelingsBox, SuggestionBox } from "~/components";
 import { useRouter } from "next/router";
 import useUserStore from "~/stores/useUserStore";
 import { useEffect } from "react";
@@ -71,8 +71,10 @@ const Dashboard: NextPage = () => {
   return (
     <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
       <DashboardLayout>
-        <Flex flexDir={"column"} align={"center"} mx={"8"} h={"full"} gap={6}>
+        <Flex flexDir={"column"} align={"center"} mx={"8"} h={"full"} gap={{ base: 6, md: 12 }}>
           <FeelingsBox />
+
+          <SuggestionBox />
         </Flex>
         {/* <Image
           src={lineTopRight}

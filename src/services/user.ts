@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { parseCookies } from "nookies";
@@ -43,7 +44,7 @@ type UserActivities = {
   humour: number,
 }
 
-export async function getUserActivities(body: UserActivities) {
+export async function getRecommendedActivities(body: UserActivities) {
   try {
     const { g_token } = parseCookies();
 
@@ -55,7 +56,6 @@ export async function getUserActivities(body: UserActivities) {
 
     return data;
   } catch (error) {
-    console.log('error', error)
     throw new Error();
   }
 }
