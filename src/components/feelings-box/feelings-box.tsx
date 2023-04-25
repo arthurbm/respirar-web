@@ -24,7 +24,7 @@ export function FeelingsBox() {
   ];
 
   return (
-    <Flex flexDir={"column"} gap={4}>
+    <Flex flexDir={"column"} gap={4} w={"full"}>
       <CustomHeading color={"white.500"} fontSize={{ base: "2xl", md: "4xl" }} fontWeight={"bold"}>
         como você está se sentindo?
       </CustomHeading>

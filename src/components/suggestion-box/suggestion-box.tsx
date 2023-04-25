@@ -69,16 +69,17 @@ export function SuggestionBox() {
   ];
 
   return (
-    <Flex flexDir={"column"} gap={4} align={"center"}>
+    <Flex flexDir={"column"} gap={4} align={"center"} w={"full"}>
       <CustomHeading
         color={"white.500"}
         fontSize={{ base: "2xl", md: "4xl" }}
         fontWeight={"bold"}
+        alignSelf={"flex-start"}
       >
         sugestões para você
       </CustomHeading>
 
-      <VStack w={"full"} spacing={4}>
+      <VStack w={"full"} spacing={2}>
         {activitiesOptions.map((option) => (
           <ActivityBox
             key={v4()}

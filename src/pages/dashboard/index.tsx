@@ -1,6 +1,11 @@
 import { Box, Flex, useToast, Spinner } from "@chakra-ui/react";
 import { type NextPage } from "next";
-import { DashboardLayout, FeelingsBox, SuggestionBox } from "~/components";
+import {
+  DashboardLayout,
+  FavoritesGraph,
+  FeelingsBox,
+  SuggestionBox,
+} from "~/components";
 import { useRouter } from "next/router";
 import useUserStore from "~/stores/useUserStore";
 import { useEffect } from "react";
@@ -25,7 +30,7 @@ const Dashboard: NextPage = () => {
     data: activitiesData,
     isLoading: activitiesLoading,
     error: activitiesError,
-  } = useActivitiesData(dashboardData?.email || '', 2, isDashboardDataLoaded);
+  } = useActivitiesData(dashboardData?.email || "", 2, isDashboardDataLoaded);
 
   useEffect(() => {
     const redirectToInterests = async () => {
@@ -71,10 +76,27 @@ const Dashboard: NextPage = () => {
   return (
     <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
       <DashboardLayout>
-        <Flex flexDir={"column"} align={"center"} mx={"8"} h={"full"} gap={{ base: 6, md: 12 }}>
+        <Flex
+          flexDir={"column"}
+          align={"center"}
+          justify={"center"}
+          mx={"8"}
+          h={"full"}
+          gap={{ base: 6, md: 12 }}
+          ml={{ base: 0, md: '18rem' }}
+          maxW={{ base: "full", md: "container.md" }}
+        >
           <FeelingsBox />
 
           <SuggestionBox />
+          
+          <FavoritesGraph
+            data={[
+              { label: "Task A", time: 30 },
+              { label: "Task B", time: 60 },
+              { label: "Task C", time: 45 },
+            ]}
+          />
         </Flex>
         {/* <Image
           src={lineTopRight}
