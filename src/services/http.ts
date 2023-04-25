@@ -3,8 +3,8 @@
 import axios from "axios";
 import { destroyCookie, parseCookies } from "nookies";
 
-const isProduction = process.env.NODE_ENV === "production";
-const baseURL = isProduction ? "https://respirar-server-node.onrender.com/" : "http://localhost:3001/";
+const isProd = process.env.NODE_ENV === "production";
+const baseURL = isProd ? "https://respirar-server-node.onrender.com/" : "http://localhost:3001/";
 
 const httpClient = axios.create({
   baseURL,
@@ -28,6 +28,7 @@ httpClient.interceptors.response.use(
     if (error?.response?.status === 401 && !originalRequest?._retry) {
       originalRequest._retry = true;
       destroyCookie(undefined, "access_token");
+      destroyCookie(undefined, "g_token");
       setTimeout(() => {
         if (window.location.pathname !== "/login") {
           window.location.replace("/login");

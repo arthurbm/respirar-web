@@ -24,13 +24,13 @@ const Dashboard: NextPage = () => {
     isSuccess: dashboardSuccess,
   } = useDashboardData();
 
-  const isDashboardDataLoaded = dashboardSuccess;
+  const dashboardhasActivity = dashboardSuccess && dashboardData.hasInterest;
 
   const {
     data: activitiesData,
     isLoading: activitiesLoading,
     error: activitiesError,
-  } = useActivitiesData(dashboardData?.email || "", 2, isDashboardDataLoaded);
+  } = useActivitiesData(dashboardData?.email || "", 2, dashboardhasActivity);
 
   useEffect(() => {
     const redirectToInterests = async () => {
