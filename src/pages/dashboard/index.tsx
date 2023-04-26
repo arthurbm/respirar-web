@@ -31,6 +31,7 @@ const Dashboard: NextPage = () => {
     isLoading: activitiesLoading,
     error: activitiesError,
   } = useActivitiesData(dashboardData?.email || "", 2, dashboardhasActivity);
+  console.log('activitiesData', activitiesData)
 
   useEffect(() => {
     const redirectToInterests = async () => {
@@ -61,7 +62,7 @@ const Dashboard: NextPage = () => {
     });
   }
 
-  if (dashboardLoading) {
+  if (dashboardLoading || !dashboardData?.hasInterest || activitiesLoading) {
     return (
       <Box bgColor={"darkBlue.500"} w={"100%"} h={"100vh"}>
         <DashboardLayout>
@@ -80,16 +81,21 @@ const Dashboard: NextPage = () => {
           flexDir={"column"}
           align={"center"}
           justify={"center"}
-          mx={"8"}
+          // mx={"8"}
           h={"full"}
           gap={{ base: 6, md: 12 }}
-          ml={{ base: 0, lg: '18rem' }}
+          mx={{ base: 0, lg: "auto" }}
           maxW={{ base: "full", md: "container.md" }}
         >
           <FeelingsBox />
 
-          <SuggestionBox />
-          
+          {activitiesData && !activitiesLoading && (
+            <SuggestionBox
+              activities={activitiesData.activities}
+              availableTimes={activitiesData.availableTimes}
+            />
+          )}
+
           <FavoritesGraph
             data={[
               { label: "filmes ou séries", time: 2, name: "movie" },

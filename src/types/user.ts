@@ -8,3 +8,11 @@ export type User = {
   password: string;
   name: string;
 };
+
+export type UserDataDashboard = {
+  access_token: string;
+  user: User;
+  email: string;
+  statusCode: number;
+  hasInterest: boolean;
+}
