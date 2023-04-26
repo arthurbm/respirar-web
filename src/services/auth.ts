@@ -4,24 +4,12 @@ import { destroyCookie, setCookie } from "nookies";
 import { type NextRouter } from "next/router";
 
 import httpClient from "./http";
-import { type User, type UserLogin } from "~/types/user";
-import { type AxiosError } from "axios";
-
-export type ResponseData = {
-  access_token: string;
-  user: User;
-  email: string;
-  statusCode: number;
-  hasInterest: boolean;
-}
-
-export type Response = {
-  data: ResponseData
-}
+import { type UserDataDashboard, type UserLogin } from "~/types/user";
+import { type AxiosResponse, type AxiosError } from "axios";
 
 export async function login({ email, password }: UserLogin) {
   try {
-    const { data }: Response = await httpClient.post("/auth/login", {
+    const { data }: AxiosResponse<UserDataDashboard> = await httpClient.post("/auth/login", {
       email,
       password,
     });
@@ -32,7 +20,7 @@ export async function login({ email, password }: UserLogin) {
     });
     return data.user;
   } catch (error: unknown) {
-    const err: AxiosError<ResponseData> = error as AxiosError<ResponseData>;
+    const err: AxiosError<UserDataDashboard> = error as AxiosError<UserDataDashboard>;
     if (err?.response?.data.statusCode === 401) {
       throw new Error("Dados de acesso incorretos");
     } else {

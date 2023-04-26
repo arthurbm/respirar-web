@@ -4,11 +4,13 @@ import { CustomHeading } from "../custom-heading";
 import { v4 } from "uuid";
 import { IconCheckOrangeBall } from "../icons/icon-check-orange-ball";
 import { IconDotsHorizontalRounded } from "../icons/icon-dots-horizontal-rounded";
-import { BiMoviePlay, BiWalk, BiWind } from "react-icons/bi";
+import { BiMoviePlay, BiWalk, BiWind, BiRun } from "react-icons/bi";
+import { type ChosenActivities } from "~/types/activities";
+import { formatDistance } from "date-fns";
 
 type ActivityBoxProps = {
   label: string;
-  name: "movie" | "exercise" | "meditation";
+  name: string;
   time: string;
   checked: boolean;
 };
@@ -27,7 +29,9 @@ function ActivityBox({ label, time, checked, name }: ActivityBoxProps) {
           align={"center"}
         >
           {name === "movie" && <BiMoviePlay color={"#E4C086"} size={"20"} />}
+          {name === "tv_show" && <BiMoviePlay color={"#E4C086"} size={"20"} />}
           {name === "exercise" && <BiWalk color={"#E4C086"} size={"20"} />}
+          {name === "walk" && <BiRun color={"#E4C086"} size={"20"} />}
           {name === "meditation" && <BiWind color={"#E4C086"} size={"20"} />}
         </Flex>
         <Flex flexDir={"column"} align="flex-start">
@@ -49,24 +53,41 @@ function ActivityBox({ label, time, checked, name }: ActivityBoxProps) {
   );
 }
 
-export function SuggestionBox() {
-  const activitiesOptions: Omit<ActivityBoxProps, "checked">[] = [
-    {
-      label: "filme ou série",
-      name: "movie",
-      time: "1h30min",
-    },
-    {
-      label: "exercício",
-      name: "exercise",
-      time: "1h",
-    },
-    {
-      label: "meditação",
-      name: "meditation",
-      time: "30min",
-    },
-  ];
+export function SuggestionBox({ activities, availableTimes }: ChosenActivities) {
+
+
+  const getTimeDifference = (start: string, end: string) => {
+    const convertedStart = new Date(start);
+    const convertedEnd = new Date(end);
+    return formatDistance(convertedStart, convertedEnd, {
+      addSuffix: true,
+    });
+  };
+
+  const splitIfCSV = (label: string) => {
+    if (label.includes(",")) {
+      const res = label.split(",")[0];
+      return res as string;
+    }
+    return label;
+  };
+
+  const getLabelOption = (label: string) => {
+    switch (label) {
+      case "movie":
+        return "filme ou série";
+      case "exercise":
+        return "exercício";
+      case "meditation":
+        return "meditação";
+      case "walk":
+        return "caminhada";
+      case "tv_show":
+        return "série";
+      default:
+        return "";
+    }
+  }
 
   return (
     <Flex flexDir={"column"} gap={4} align={"center"} w={"full"}>
@@ -80,12 +101,15 @@ export function SuggestionBox() {
       </CustomHeading>
 
       <VStack w={"full"} spacing={2}>
-        {activitiesOptions.map((option) => (
+        {activities.options.map((option) => (
           <ActivityBox
             key={v4()}
-            label={option.label}
-            time={option.time}
-            name={option.name}
+            label={getLabelOption(splitIfCSV(option))}
+            time={getTimeDifference(
+              availableTimes[0]?.start as string,
+              availableTimes[0]?.end as string
+            )}
+            name={splitIfCSV(option)}
             checked={false}
           />
         ))}
