@@ -6,7 +6,8 @@ import { IconCheckOrangeBall } from "../icons/icon-check-orange-ball";
 import { IconDotsHorizontalRounded } from "../icons/icon-dots-horizontal-rounded";
 import { BiMoviePlay, BiWalk, BiWind, BiRun } from "react-icons/bi";
 import { type ChosenActivities } from "~/types/activities";
-import { formatDistance } from "date-fns";
+import { intervalToDuration, formatDuration } from "date-fns";
+import Link from "next/link"
 
 type ActivityBoxProps = {
   label: string;
@@ -17,39 +18,43 @@ type ActivityBoxProps = {
 
 function ActivityBox({ label, time, checked, name }: ActivityBoxProps) {
   return (
-    <Flex w="full" justify={"space-between"} align={"center"}>
-      <HStack>
-        <Flex
-          w={"8"}
-          h={"8"}
-          opacity={0.6}
-          bgColor={"orange.500"}
-          borderRadius={"full"}
-          justify={"center"}
-          align={"center"}
-        >
-          {name === "movie" && <BiMoviePlay color={"#E4C086"} size={"20"} />}
-          {name === "tv_show" && <BiMoviePlay color={"#E4C086"} size={"20"} />}
-          {name === "exercise" && <BiWalk color={"#E4C086"} size={"20"} />}
-          {name === "walk" && <BiRun color={"#E4C086"} size={"20"} />}
-          {name === "meditation" && <BiWind color={"#E4C086"} size={"20"} />}
-        </Flex>
-        <Flex flexDir={"column"} align="flex-start">
-          <Text color={"orange.500"} fontWeight={600} fontSize={"md"}>
-            {label}
-          </Text>
-          <Text color={"yellow.500"} fontWeight={500} fontSize={"sm"}>
-            {time}
-          </Text>
-        </Flex>
-      </HStack>
+    <Link href={`dashboard/atividade?exercicio`} passHref style={{ width: "100%" }}>
+      <Flex w="full">
+        <Flex w="full" justify={"space-between"} align={"center"}>
+          <HStack>
+            <Flex
+              w={"8"}
+              h={"8"}
+              opacity={0.6}
+              bgColor={"orange.500"}
+              borderRadius={"full"}
+              justify={"center"}
+              align={"center"}
+            >
+              {name === "movie" && <BiMoviePlay color={"#E4C086"} size={"20"} />}
+              {name === "tv_show" && <BiMoviePlay color={"#E4C086"} size={"20"} />}
+              {name === "exercise" && <BiWalk color={"#E4C086"} size={"20"} />}
+              {name === "walk" && <BiRun color={"#E4C086"} size={"20"} />}
+              {name === "meditation" && <BiWind color={"#E4C086"} size={"20"} />}
+            </Flex>
+            <Flex flexDir={"column"} align="flex-start">
+              <Text color={"orange.500"} fontWeight={600} fontSize={"md"}>
+                {label}
+              </Text>
+              <Text color={"yellow.500"} fontWeight={500} fontSize={"sm"}>
+                {time}
+              </Text>
+            </Flex>
+          </HStack>
 
-      {checked ? (
-        <IconCheckOrangeBall w={"8"} h={"8"} />
-      ) : (
-        <IconDotsHorizontalRounded color={"orange.500"} w={"8"} h={"8"} />
-      )}
-    </Flex>
+          {checked ? (
+            <IconCheckOrangeBall w={"8"} h={"8"} />
+          ) : (
+            <IconDotsHorizontalRounded color={"orange.500"} w={"8"} h={"8"} />
+          )}
+        </Flex>
+      </Flex>
+    </Link>
   );
 }
 
@@ -57,11 +62,12 @@ export function SuggestionBox({ activities, availableTimes }: ChosenActivities) 
 
 
   const getTimeDifference = (start: string, end: string) => {
+
     const convertedStart = new Date(start);
     const convertedEnd = new Date(end);
-    return formatDistance(convertedStart, convertedEnd, {
-      addSuffix: true,
-    });
+    const interval = intervalToDuration({ start: convertedStart, end: convertedEnd });
+    const durationString = formatDuration(interval, { format: ['hours', 'minutes'] });
+    return durationString;
   };
 
   const splitIfCSV = (label: string) => {
@@ -89,6 +95,10 @@ export function SuggestionBox({ activities, availableTimes }: ChosenActivities) 
     }
   }
 
+  function getRandomBoolean() {
+    return Math.random() < 0.5;
+  }
+
   return (
     <Flex flexDir={"column"} gap={4} align={"center"} w={"full"}>
       <CustomHeading
@@ -110,7 +120,7 @@ export function SuggestionBox({ activities, availableTimes }: ChosenActivities) 
               availableTimes[0]?.end as string
             )}
             name={splitIfCSV(option)}
-            checked={false}
+            checked={getRandomBoolean()}
           />
         ))}
       </VStack>
