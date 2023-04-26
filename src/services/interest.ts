@@ -1,4 +1,4 @@
-import { type Response } from "./auth";
+import { type AxiosResponse } from "axios";
 import httpClient from "./http";
 import { type createInterest } from "~/types/interest";
 
@@ -20,7 +20,7 @@ export async function createInterest(body: createInterest) {
   try {
     const formattedData = createInterestFormatter(body);
 
-    const { data }: Response = await httpClient.post(`/interests`, formattedData);
+    const { data }: AxiosResponse<unknown> = await httpClient.post(`/interests`, formattedData);
     console.log(formattedData, data)
     return data;
   } catch (error) {
